@@ -201,7 +201,7 @@ const Transactions = () => {
     return now.toLocaleString("en-US", options).replace(",", "");
   }
   useEffect(() => {
-    fetch("http://localhost:5000/latest")
+    fetch("http://24.199.120.137:5000/latest")
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

@@ -153,54 +153,29 @@ const dataLists = [
 const AccountDashboard = () => {
   const params = useParams();
   const id = params.id;
-  const { getSolTransaction, phantonConnect } = useContext(CryptoTrans);
-
-  const [transData, setTransData] = useState(null); // State to hold transaction data
-
-  function parseTransactionDetails(transactions) {
-    return transactions.map((tx) => {
-      const sender = tx.transaction.message.accountKeys[0]; // Sender is usually the first account key
-      const receiver = tx.transaction.message.accountKeys[1]; // Receiver is the second account key
-      const fee = tx.meta.fee; // Transaction fee
-      const blockTime = tx.blockTime; // Block time (UNIX timestamp)
-      const date = new Date(blockTime * 1000).toISOString(); // Convert block time to readable date
-      const preBalances = tx.meta.preBalances; // Balances before the transaction
-      const postBalances = tx.meta.postBalances; // Balances after the transaction
-      const amount = preBalances[0] - postBalances[0]; // Amount transferred (difference in sender's balance)
-      const mintAddress = tx.transaction.message.accountKeys[2]; // Mint address (if applicable)
-
-      return {
-        sender,
-        receiver,
-        mintAddress,
-        amount,
-        fee,
-        date,
-      };
-    });
-  }
+  const [holding, setHolding] = useState([])
+  const [defi_trades, setDefi_trades] = useState([])
 
   useEffect(() => {
-    const fetchTransactionData = async () => {
-      try {
-        const publicKey = new PublicKey(id);
-        if (phantonConnect && publicKey) {
-          const data = await getSolTransaction(phantonConnect, publicKey);
-
-          console.log("eee", data);
-          setTransData(parseTransactionDetails(data)); // Set the fetched data into state
-          console.log(parseTransactionDetails(data));
-        } else {
-          console.error("Invalid connection or public key");
+    // Fetch data from the API
+    fetch(`http://24.199.120.137:5000/account/${id}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
-      } catch (error) {
-        console.error("Error fetching transaction data:", error);
-      }
-    };
-    if (phantonConnect && id) {
-      fetchTransactionData(); // Fetch transaction data when connection and ID are available
-    }
-  }, [phantonConnect, id]); // Dependency array: re-run effect when `phantonConnect` or `id` change
+        return response.json();
+      })
+      .then((propertyData) => {
+        setHolding(propertyData["holding"]);
+        setDefi_trades(propertyData["defi"]);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
+  console.log("holding: ", holding);
+  console.log("defi trades: ", defi_trades);
 
   const mockTopHoldings = [
     {

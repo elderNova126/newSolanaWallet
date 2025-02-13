@@ -15,7 +15,7 @@ import { alpha, useTheme } from "@mui/material/styles";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 
-const socket = io("http://localhost:5000"); // Connect to Flask-SocketIO server
+const socket = io("http://24.199.120.137:5000"); // Connect to Flask-SocketIO server
 
 const RealTimeTraders = () => {
   const theme = useTheme();
@@ -76,7 +76,7 @@ const RealTimeTraders = () => {
   }
   useEffect(() => {
     setLoading(true);
-    fetch("http://localhost:5000/trades")
+    fetch("http://24.199.120.137:5000/trades")
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -143,7 +143,6 @@ const RealTimeTraders = () => {
 
     return () => clearInterval(interval); // Cleanup on unmount
   }, []); // Run once on mount
-  console.log("************", trades);
 
   return (
     <Box>
