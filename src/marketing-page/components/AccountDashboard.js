@@ -9,14 +9,148 @@ import {
   Container,
   Stack,
   Grid,
+  Avatar,
+  Tooltip,
 } from "@mui/material";
 import { alpha, useTheme } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import { CryptoTrans } from "../TransFunc/CryptoTrans";
 import { PublicKey } from "@solana/web3.js";
 import { Link, useParams } from "react-router-dom";
-const AccountDashboard = () => {
 
+const dataLists = [
+  {
+    image:
+      "https://cdn.kolscan.io/profiles/3h65MmPZksoKKyEpEjnWU2Yk2iYT5oZDNitGy5cTaxoE.png",
+    name: "Kev",
+    sol_amount: "2.04",
+    usd_amount: "$51.8",
+    b_type: "Buy",
+    b_amount: "235.3 Sol (23.4m)",
+    b_date: "2d",
+    s_type: "Sell",
+    s_amount: "90.91 Sol (18.4m)",
+    s_date: "2d",
+  },
+  {
+    image:
+      "https://cdn.kolscan.io/profiles/3h65MmPZksoKKyEpEjnWU2Yk2iYT5oZDNitGy5cTaxoE.png",
+    name: "Kev",
+    sol_amount: "2.04",
+    usd_amount: "$51.8",
+    b_type: "Buy",
+    b_amount: "235.3 Sol (23.4m)",
+    b_date: "2d",
+    s_type: "Sell",
+    s_amount: "90.91 Sol (18.4m)",
+    s_date: "2d",
+  },
+  {
+    image:
+      "https://cdn.kolscan.io/profiles/3h65MmPZksoKKyEpEjnWU2Yk2iYT5oZDNitGy5cTaxoE.png",
+    name: "Kev",
+    sol_amount: "2.04",
+    usd_amount: "$51.8",
+    b_type: "Buy",
+    b_amount: "235.3 Sol (23.4m)",
+    b_date: "2d",
+    s_type: "Sell",
+    s_amount: "90.91 Sol (18.4m)",
+    s_date: "2d",
+  },
+  {
+    image:
+      "https://cdn.kolscan.io/profiles/3h65MmPZksoKKyEpEjnWU2Yk2iYT5oZDNitGy5cTaxoE.png",
+    name: "Kev",
+    sol_amount: "2.04",
+    usd_amount: "$51.8",
+    b_type: "Buy",
+    b_amount: "235.3 Sol (23.4m)",
+    b_date: "2d",
+    s_type: "Sell",
+    s_amount: "90.91 Sol (18.4m)",
+    s_date: "2d",
+  },
+  {
+    image:
+      "https://cdn.kolscan.io/profiles/3h65MmPZksoKKyEpEjnWU2Yk2iYT5oZDNitGy5cTaxoE.png",
+    name: "Kev",
+    sol_amount: "2.04",
+    usd_amount: "$51.8",
+    b_type: "Buy",
+    b_amount: "235.3 Sol (23.4m)",
+    b_date: "2d",
+    s_type: "Sell",
+    s_amount: "90.91 Sol (18.4m)",
+    s_date: "2d",
+  },
+  {
+    image:
+      "https://cdn.kolscan.io/profiles/3h65MmPZksoKKyEpEjnWU2Yk2iYT5oZDNitGy5cTaxoE.png",
+    name: "Kev",
+    sol_amount: "2.04",
+    usd_amount: "$51.8",
+    b_type: "Buy",
+    b_amount: "235.3 Sol (23.4m)",
+    b_date: "2d",
+    s_type: "Sell",
+    s_amount: "90.91 Sol (18.4m)",
+    s_date: "2d",
+  },
+  {
+    image:
+      "https://cdn.kolscan.io/profiles/3h65MmPZksoKKyEpEjnWU2Yk2iYT5oZDNitGy5cTaxoE.png",
+    name: "Kev",
+    sol_amount: "2.04",
+    usd_amount: "$51.8",
+    b_type: "Buy",
+    b_amount: "235.3 Sol (23.4m)",
+    b_date: "2d",
+    s_type: "Sell",
+    s_amount: "90.91 Sol (18.4m)",
+    s_date: "2d",
+  },
+  {
+    image:
+      "https://cdn.kolscan.io/profiles/3h65MmPZksoKKyEpEjnWU2Yk2iYT5oZDNitGy5cTaxoE.png",
+    name: "Kev",
+    sol_amount: "2.04",
+    usd_amount: "$51.8",
+    b_type: "Buy",
+    b_amount: "235.3 Sol (23.4m)",
+    b_date: "2d",
+    s_type: "Sell",
+    s_amount: "90.91 Sol (18.4m)",
+    s_date: "2d",
+  },
+  {
+    image:
+      "https://cdn.kolscan.io/profiles/3h65MmPZksoKKyEpEjnWU2Yk2iYT5oZDNitGy5cTaxoE.png",
+    name: "Kev",
+    sol_amount: "2.04",
+    usd_amount: "$51.8",
+    b_type: "Buy",
+    b_amount: "235.3 Sol (23.4m)",
+    b_date: "2d",
+    s_type: "Sell",
+    s_amount: "90.91 Sol (18.4m)",
+    s_date: "2d",
+  },
+  {
+    image:
+      "https://cdn.kolscan.io/profiles/3h65MmPZksoKKyEpEjnWU2Yk2iYT5oZDNitGy5cTaxoE.png",
+    name: "Kev",
+    sol_amount: "2.04",
+    usd_amount: "$51.8",
+    b_type: "Buy",
+    b_amount: "235.3 Sol (23.4m)",
+    b_date: "2d",
+    s_type: "Sell",
+    s_amount: "90.91 Sol (18.4m)",
+    s_date: "2d",
+  },
+];
+const AccountDashboard = () => {
   const params = useParams();
   const id = params.id;
   const { getSolTransaction, phantonConnect } = useContext(CryptoTrans);
@@ -24,27 +158,27 @@ const AccountDashboard = () => {
   const [transData, setTransData] = useState(null); // State to hold transaction data
 
   function parseTransactionDetails(transactions) {
-    return transactions.map(tx => {
-        const sender = tx.transaction.message.accountKeys[0]; // Sender is usually the first account key
-        const receiver = tx.transaction.message.accountKeys[1]; // Receiver is the second account key
-        const fee = tx.meta.fee; // Transaction fee
-        const blockTime = tx.blockTime; // Block time (UNIX timestamp)
-        const date = new Date(blockTime * 1000).toISOString(); // Convert block time to readable date
-        const preBalances = tx.meta.preBalances; // Balances before the transaction
-        const postBalances = tx.meta.postBalances; // Balances after the transaction
-        const amount = preBalances[0] - postBalances[0]; // Amount transferred (difference in sender's balance)
-        const mintAddress = tx.transaction.message.accountKeys[2]; // Mint address (if applicable)
+    return transactions.map((tx) => {
+      const sender = tx.transaction.message.accountKeys[0]; // Sender is usually the first account key
+      const receiver = tx.transaction.message.accountKeys[1]; // Receiver is the second account key
+      const fee = tx.meta.fee; // Transaction fee
+      const blockTime = tx.blockTime; // Block time (UNIX timestamp)
+      const date = new Date(blockTime * 1000).toISOString(); // Convert block time to readable date
+      const preBalances = tx.meta.preBalances; // Balances before the transaction
+      const postBalances = tx.meta.postBalances; // Balances after the transaction
+      const amount = preBalances[0] - postBalances[0]; // Amount transferred (difference in sender's balance)
+      const mintAddress = tx.transaction.message.accountKeys[2]; // Mint address (if applicable)
 
-        return {
-            sender,
-            receiver,
-            mintAddress,
-            amount,
-            fee,
-            date
-        };
+      return {
+        sender,
+        receiver,
+        mintAddress,
+        amount,
+        fee,
+        date,
+      };
     });
-}
+  }
 
   useEffect(() => {
     const fetchTransactionData = async () => {
@@ -53,7 +187,6 @@ const AccountDashboard = () => {
         if (phantonConnect && publicKey) {
           const data = await getSolTransaction(phantonConnect, publicKey);
 
-          
           console.log("eee", data);
           setTransData(parseTransactionDetails(data)); // Set the fetched data into state
           console.log(parseTransactionDetails(data));
@@ -126,9 +259,9 @@ const AccountDashboard = () => {
       sx={{
         p: 3,
         borderRadius: 2,
-        background:"#faf3e0",
+        background: "#faf3e0",
         backdropFilter: "blur(12px)",
-        border: '1px solid black',
+        border: "1px solid black",
         transition: "transform 0.3s ease-in-out",
         "&:hover": {
           transform: "translateY(-5px)",
@@ -266,12 +399,12 @@ const AccountDashboard = () => {
                       {trade.icon}
                     </Box>
                     <Box flex={1}>
-                      <Typography fontWeight="400" color="black">{trade.token}</Typography>
+                      <Typography fontWeight="400" color="black">
+                        {trade.token}
+                      </Typography>
                     </Box>
                     <Box sx={{ textAlign: "right" }} color="black">
-                      <Typography color="black">
-                        @ {trade.price} SOL
-                      </Typography>
+                      <Typography color="black">@ {trade.price} SOL</Typography>
                     </Box>
                   </Box>
                 ))}
@@ -279,6 +412,7 @@ const AccountDashboard = () => {
             </GlassCard>
           </Grid>
         </Grid>
+
         <Grid sx={{ marginTop: 3 }}>
           {/* Token PnL */}
           <GlassCard>
@@ -286,46 +420,170 @@ const AccountDashboard = () => {
               direction="row"
               alignItems="center"
               justifyContent="space-between"
-              mb={3}
+              mb={1}
             >
               <Typography variant="h6" fontWeight="700" color="black">
-                Token PnL
-              </Typography>
-              <Select
-                size="small"
-                defaultValue="recent"
-                sx={{
-                  minWidth: 120,
-                  background: "#faf3e0",
-                }}
-              >
-                <MenuItem value="recent">Most Recent</MenuItem>
-                <MenuItem value="profit">Highest Profit</MenuItem>
-                <MenuItem value="loss">Highest Loss</MenuItem>
-              </Select>
-            </Stack>
-            <Box sx={{ textAlign: "center", py: 3 }}>
-              <Typography
-                variant="h4"
-                sx={{
-                  background:
-                    "linear-gradient(45deg, #4CAF50 30%, #81C784 90%)",
-                  backgroundClip: "text",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  fontWeight: 800,
-                }}
-              >
-                +125.45 SOL
+                Token PnL{"  "}
+                <Select
+                  size="small"
+                  defaultValue="recent"
+                  sx={{
+                    minWidth: 120,
+                    p: 1,
+                    height: 10,
+                  }}
+                >
+                  <MenuItem value="recent">Most Recent</MenuItem>
+                  <MenuItem value="profit">Profit</MenuItem>
+                  <MenuItem value="loss">Loss</MenuItem>
+                </Select>
               </Typography>
               <Typography
                 variant="h6"
-                color="success.main"
-                fontWeight="600"
-                sx={{ mt: 1 }}
+                sx={{ fontWeight: "800", color: "black" }}
               >
-                $8,781.50
+                12312312/4564646
               </Typography>
+            </Stack>
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: {
+                  xs: "1fr",
+                  sm: "repeat(auto-fit, minmax(250px, 1fr))",
+                  md: "repeat(4, 1fr)",
+                },
+                border: "1px solid black",
+                width: "100%",
+                p: 1,
+                background: "#faf3e0",
+                maxHeight: "800px",
+                overflowY: "auto",
+                "&::-webkit-scrollbar": {
+                  width: "4px",
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  backgroundColor: "rgb(200, 160, 60)", // Adjusted for contrast
+                  borderRadius: "1px",
+                },
+                "&::-webkit-scrollbar-track": {
+                  background: "#faf3e0",
+                },
+              }}
+            >
+              {dataLists.map((dataList, index) => {
+                return (
+                  <Paper key={index}>
+                    {dataLists.map((item, index) => (
+                      <>
+                        <Box
+                          elevation={2}
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between", // Ensures separation between left and right
+                            pl: 3,
+                            pr: 3,
+                            borderRadius: 0,
+                            background: "#faf3e0",
+                          }}
+                        >
+                          {/* Left Section (Avatar + Name) */}
+                          <Box
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: 1,
+                            }}
+                          >
+                            <Avatar
+                              src={dataList.image}
+                              alt="user pfp"
+                              sx={{
+                                width: { xs: 30, sm: 40 },
+                                height: { xs: 30, sm: 40 },
+                              }}
+                            />
+                            <Typography variant="h4" color="black">
+                              {dataList.name}
+                            </Typography>
+                          </Box>
+
+                          {/* Right Section (Tooltip Text) */}
+                          <Typography color="black" sx={{ ml: "auto" }}>
+                            {dataList.sol_amount}/{dataList.usd_amount}
+                          </Typography>
+                        </Box>
+                        <Box
+                          elevation={4}
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between", // Ensures separation between left and right
+                            pl: 3,
+                            pr: 3,
+                            borderRadius: 0,
+                            background: "#faf3e0",
+                          }}
+                        >
+                          {/* Left Section (Avatar + Name) */}
+                          <Box
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: 1,
+                            }}
+                          >
+                            <Typography variant="h6" color="green">
+                              {dataList.b_type}
+                            </Typography>
+                            <Typography variant="h6" color="black">
+                              {dataList.b_amount}
+                            </Typography>
+                          </Box>
+                          {/* Right Section (Tooltip Text) */}
+                          <Typography color="black" sx={{ ml: "auto" }}>
+                            {dataList.b_date}
+                          </Typography>
+                        </Box>
+                        <Box
+                          elevation={5}
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between", // Ensures separation between left and right
+                            pl: 3,
+                            pr: 3,
+                            pt: 3,
+                            borderRadius: 0,
+                            background: "#faf3e0",
+                          }}
+                        >
+                          {/* Left Section (Avatar + Name) */}
+                          <Box
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: 1,
+                            }}
+                          >
+                            <Typography variant="h6" color="red">
+                              {dataList.s_type}
+                            </Typography>
+                            <Typography variant="h6" color="black">
+                              {dataList.s_amount}
+                            </Typography>
+                          </Box>
+                          {/* Right Section (Tooltip Text) */}
+                          <Typography color="black" sx={{ ml: "auto" }}>
+                            s_date
+                          </Typography>
+                        </Box>
+                      </>
+                    ))}
+                  </Paper>
+                );
+              })}
             </Box>
           </GlassCard>
         </Grid>

@@ -104,9 +104,9 @@ export default function AppAppBar() {
               <Button
                 onClick={() => {
                   if (!solCurrentAccount) {
-                    SolConnectWallet();
+                    SolConnectWallet(1);
                   } else {
-                    navigate("/account");
+                    navigate(`/account/${solCurrentAccount}`);
                   }
                 }}
                 variant="contained"

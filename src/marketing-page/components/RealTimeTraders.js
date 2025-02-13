@@ -146,6 +146,7 @@ const RealTimeTraders = () => {
   console.log("************", trades);
 
   return (
+    <Box>
     <Box
       sx={{
         display: "grid",
@@ -176,13 +177,13 @@ const RealTimeTraders = () => {
           display="flex"
           justifyContent="center"
           alignItems="center"
-          minHeight="100vh"
+          sx={{ minHeight: "100vh", width: "100%" }}
         >
           <CircularProgress />
         </Box>
       ) : (
         <>
-          {" "}
+
           {Object.entries(trades).map(([wallet, transactions]) => {
             const username = transactions[0]?.User_Name || "Unknown"; // Fix undefined username
             const Avatar_link = transactions[0]?.Avatar || "Unknown"; // Fix undefined username
@@ -394,6 +395,7 @@ const RealTimeTraders = () => {
           })}
         </>
       )}
+    </Box>
     </Box>
   );
 };

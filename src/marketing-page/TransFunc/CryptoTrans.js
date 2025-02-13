@@ -13,9 +13,9 @@ export const CryptoProvider = ({ children }) => {
   const [phantonConnect, setPhantonConnect] = useState(null);
 
   ////////////////////////////////////////////////////////// connect Solana wallet ///////////////////////////////////////////////////////////////
-  const SolConnectWallet = async () => {
+  const SolConnectWallet = async (cate) => {
     if (!window.solana || !window.solana.isPhantom) {
-      alert("Please install Phantom Wallet!");
+      if(cate===1) alert("Please install Phantom Wallet!");
       return;
     }
     try {
