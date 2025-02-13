@@ -217,106 +217,135 @@ const Transactions = () => {
   }, []);
   console.log("##################", transactions);
   return (
-    <Box sx={{ width: "100%", background: "#faf3e0" }}>
+    <Box sx={{ 
+      width: "100%", 
+      background: "#faf3e0",
+      px: 3  // Added horizontal padding
+    }}>
       {transactions.map((tx) => (
         <Paper
-          key={tx.wallet}
+          key={tx.Wallet}
           elevation={0}
           sx={{
             display: "flex",
             alignItems: "center",
+            justifyContent: "space-between",
             gap: { xs: 1.5, sm: 2 },
             p: 2,
             borderRadius: 0,
             background: "#faf3e0",
-            // borderBottom: "2px solid #000000",
             borderTop: "1px solid #000000",
+            maxWidth: "1400px", // Added max-width
+            mx: "auto", // Center the paper
           }}
         >
-          <Link
-            href={`${tx.User_Name}.html`}
-            sx={{
-              textDecoration: "none",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <Avatar
-              src={tx.Avatar}
-              alt={`${tx.User_Name} pfp`}
+          {/* Left Section */}
+          <Box sx={{ 
+            display: "flex", 
+            alignItems: "center", 
+            gap: 2,
+            minWidth: "120px", // Fixed width for avatar and name
+          }}>
+            <Link
+              href={`/account/${tx.Wallet}`}
               sx={{
                 textDecoration: "none",
-                width: 40,
-                height: 40,
-                border: `2px solid ${alpha(theme.palette.primary.main, 0.2)}`,
+                display: "flex",
+                alignItems: "center",
               }}
-            />
-          </Link>
-
-          <Box sx={{ flexGrow: 1 }}>
-            <Box
-              sx={{ display: "flex", alignItems: "center", gap: 1, mb: 0.5 }}
             >
-              <Link
-                href={`${tx.id}.html`}
+              <Avatar
+                src={tx.Avatar}
+                alt={`${tx.User_Name} pfp`}
                 sx={{
                   textDecoration: "none",
-                  color: "black",
-                  fontWeight: 600,
-                }}
-              >
-                {tx.User_Name}
-              </Link>
-              <Chip
-                // icon={<LocalOfferIcon sx={{ fontSize: 16 }} />}
-                label={tx.Buy_Sell === "Buy" ? "bought" : "sold"} // Display "Bought" for Buy and "Sold" for Sell
-                size="small"
-                sx={{
-                  color: "white", // Text color (white for contrast)
-                  backgroundColor: tx.Buy_Sell === "Buy" ? "green" : "red", // Background color based on Buy/Sell
-                  fontWeight: 600,
+                  width: 40,
+                  height: 40,
+                  border: `2px solid ${alpha(theme.palette.primary.main, 0.2)}`,
                 }}
               />
-              <Typography
-                variant="body2"
-                sx={{
-                  color: tx.Buy_Sell === "Buy" ? "green" : "red",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 0.5,
-                }}
-              >
-                {tx.Sol_Amount} sol {`(${tx.Token_Amount})`}
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{
-                  color: "black",
-                  fontWeight: 500,
-                }}
-              >
-                of <span style={{ fontWeight: "bold" }}>{tx.Token}</span>
-              </Typography>
-            </Box>
+            </Link>
+
+            <Link
+              href={`${tx.id}.html`}
+              sx={{
+                textDecoration: "none",
+                color: "black",
+                fontWeight: 600,
+              }}
+            >
+              {tx.User_Name}
+            </Link>
           </Box>
 
-          <Tooltip title="View transaction">
-            <Link
-              href={tx.Link}
-              target="_blank"
+          {/* Middle Section */}
+          <Box sx={{ 
+            display: "flex", 
+            alignItems: "center", 
+            gap: 2,
+            flex: 1,
+            maxWidth: "300px", // Added max-width for middle section
+            justifyContent: "center"
+          }}>
+            <Chip
+              label={tx.Buy_Sell === "Buy" ? "bought" : "sold"}
+              size="small"
               sx={{
+                color: "white",
+                backgroundColor: tx.Buy_Sell === "Buy" ? "green" : "red",
+                fontWeight: 600,
+                minWidth: "80px", // Fixed width for chip
+              }}
+            />
+            
+            <Typography
+              variant="body2"
+              sx={{
+                color: tx.Buy_Sell === "Buy" ? "green" : "red",
                 display: "flex",
                 alignItems: "center",
                 gap: 0.5,
-                fontSize: "0.875rem",
-                textDecoration: "none",
-                color: "black",
+                minWidth: "150px", // Fixed width for amount
               }}
             >
-              {getTimeDifference(getCurrentCETTime(), tx.Time)}
-              <OpenInNewIcon sx={{ fontSize: 16 }} />
-            </Link>
-          </Tooltip>
+              {tx.Sol_Amount} sol {`(${tx.Token_Amount})`}
+            </Typography>
+
+            <Typography
+              variant="body2"
+              sx={{
+                color: "black",
+                fontWeight: 500,
+                minWidth: "80px", // Fixed width for token name
+              }}
+            >
+              of <span style={{ fontWeight: "bold" }}>{tx.Token}</span>
+            </Typography>
+          </Box>
+
+          {/* Right Section */}
+          <Box sx={{ 
+            minWidth: "50px", // Fixed width for timestamp
+            textAlign: "right"
+          }}>
+            <Tooltip title="View transaction">
+              <Link
+                href={tx.Link}
+                target="_blank"
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 0.5,
+                  fontSize: "0.875rem",
+                  textDecoration: "none",
+                  color: "black",
+                }}
+              >
+                {getTimeDifference(getCurrentCETTime(), tx.Time)}
+                <OpenInNewIcon sx={{ fontSize: 16 }} />
+              </Link>
+            </Tooltip>
+          </Box>
         </Paper>
       ))}
     </Box>
