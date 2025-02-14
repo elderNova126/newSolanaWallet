@@ -16,7 +16,7 @@ const TermsAndConditions = () => {
       icon: <HandshakeIcon sx={{ fontSize: 32 }} />,
       title: "Acceptance of Terms",
       content: [
-        "By accessing KolScan, you agree to these terms",
+        "By accessing KOLs Online, you agree to these terms",
         "Terms apply to all services and features",
         "Updates to terms will be notified",
         "Continued use implies acceptance of changes"
@@ -127,7 +127,7 @@ const TermsAndConditions = () => {
               mx: 'auto',
             }}
           >
-            Welcome to KolScan. These Terms and Conditions outline the rules and regulations
+            Welcome to KOLs Online. These Terms and Conditions outline the rules and regulations
             for using our platform. Please read carefully before proceeding.
           </Typography>
         </Paper>

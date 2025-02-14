@@ -9,14 +9,12 @@ function Footer() {
           fontFamily: "VT323, monospace",
           fontSize: "5rem",
           fontWeight: 800,
-          color: 'cyan',
+          color: "cyan",
         }}
       >
         Where Fun Meets Fortune!
       </Typography>
-      <Typography >
-        © 2025 Kolscan – All rights reserved.
-      </Typography>
+      <Typography>© 2025 KOLs Online – All rights reserved.</Typography>
     </Box>
   );
 }

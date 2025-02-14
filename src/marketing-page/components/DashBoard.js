@@ -18,9 +18,9 @@ export default function DashBoard() {
     <Container
       maxWidth={false}
       disableGutters
-      sx={{        
+      sx={{
         background: "#faf3e0",
-        px: '5%',   
+        px: "5%",
       }}
     >
       {/* Hero Section */}
@@ -63,8 +63,12 @@ export default function DashBoard() {
       </Box>
 
       {/* Main Grid Section */}
-      <Box sx={{borderLeft: "2px solid #000000 !important",
-        borderRight: "2px solid #000000",}}>
+      <Box
+        sx={{
+          borderLeft: "2px solid #000000 !important",
+          borderRight: "2px solid #000000",
+        }}
+      >
         <Grid container spacing={0} sx={{ width: "100%", flexWrap: "wrap" }}>
           {/* Left Column */}
           <Grid item xs={12} lg={8}>
@@ -159,7 +163,7 @@ export default function DashBoard() {
                   display: "grid",
                   gap: 2, // Adds space between the buttons
                   mt: 2, // Adds margin on top
-                 
+
                   pl: 5,
                   pr: 5,
                   mx: "auto", // Centers it horizontally
@@ -170,21 +174,21 @@ export default function DashBoard() {
               >
                 <CustomButton
                   IconComponent={TwitterIcon}
-                  link="https://twitter.com/kolscan"
+                  link="https://twitter.com/kolsOnline"
                   buttonText="Follow on Twitter"
                 />
                 <CustomButton
                   IconComponent={TelegramIcon}
-                  link="https://t.me/kolscan"
+                  link="https://t.me/kolsOnline"
                   buttonText="Join Our Telegram"
                 />
                 <CustomButton
                   IconComponent={ShoppingCartIcon}
                   link="https://raydium.io/swap/"
-                  buttonText="Buy $KOLSCAN"
+                  buttonText="Buy $kolsOnline"
                 />
               </Box>
-              <Box sx={{ borderBottom: "2px solid #000000", }}>
+              <Box sx={{ borderBottom: "2px solid #000000" }}>
                 <img
                   src="https://www.ladobe.com.mx/wp-content/uploads/2021/09/b0abbb0b-21ca-e423-ed27-b98869c984a7.gif" // Replace with your image URL
                   alt="Pong Coin Logo"

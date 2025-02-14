@@ -15,6 +15,8 @@ import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 
 const Leaderboard = () => {
   const [leader, setLeader] = useState([]);
+  const [copied, setCopied] = useState(false);
+  const [copiedShortWallet, setCopiedShortWallet] = useState("");
 
   useEffect(() => {
     // Fetch data from the API
@@ -32,6 +34,7 @@ const Leaderboard = () => {
         console.error("Error fetching data:", error);
       });
   }, []);
+
   return (
     <Box
       sx={{
@@ -92,11 +95,13 @@ const Leaderboard = () => {
           </Box>
 
           <Link
-            href={`${tx.id}.html`}
+            href={`/account/${tx.wallet_address.split("/").pop()}`}
             sx={{
               textDecoration: "none",
               display: "flex",
+              color: "black",
               alignItems: "center",
+              fontWeight: 600,
             }}
           >
             <Avatar
@@ -108,6 +113,7 @@ const Leaderboard = () => {
                 height: 40,
               }}
             />
+            {tx.username}
           </Link>
 
           <Box sx={{ flexGrow: 1 }}>
@@ -115,17 +121,7 @@ const Leaderboard = () => {
               sx={{ display: "flex", alignItems: "center", gap: 1, mb: 0.5 }}
             >
               <Link
-                href={`${tx.id}.html`}
-                sx={{
-                  textDecoration: "none",
-                  color: "black",
-                  fontWeight: 600,
-                }}
-              >
-                {tx.username}
-              </Link>
-              <Link
-                href={`${tx.twitter_link}`}
+                href={`https://x.com/${tx.twitter_link.split("/")[2]}`}
                 sx={{
                   textDecoration: "none",
                   display: "flex",
@@ -133,7 +129,7 @@ const Leaderboard = () => {
                 }}
               >
                 <Avatar
-                  src="https://kolscan.io/images/Twitter.webp"
+                  src="/images/Twitter.webp" 
                   alt={`${tx.name} pfp`}
                   sx={{
                     textDecoration: "none",
@@ -142,17 +138,34 @@ const Leaderboard = () => {
                   }}
                 />
               </Link>
-              <Link
-                href={`${tx.wallet_address}`}
+              <Box
                 sx={{
                   color: "black",
                   textDecoration: "none",
                   display: "flex",
                   alignItems: "center",
+                  cursor: "pointer",
+                }}
+                onClick={(e) => {
+                  e.preventDefault(); // Prevent the default link action
+                  navigator.clipboard.writeText(
+                    tx.wallet_address.split("/").pop()
+                  );
+                  setCopied(true);
+                  setCopiedShortWallet(
+                    tx.wallet_address.split("/").pop().substring(0, 12)
+                  );
+                  setTimeout(() => {
+                    setCopied(false);
+                  }, 500);
                 }}
               >
-                {tx.wallet_address.split("/").pop().substring(0, 12)}
-              </Link>
+                {copied &&
+                copiedShortWallet ===
+                  tx.wallet_address.split("/").pop().substring(0, 12)
+                  ? "Copied"
+                  : tx.wallet_address.split("/").pop().substring(0, 12)}
+              </Box>
             </Box>
           </Box>
 

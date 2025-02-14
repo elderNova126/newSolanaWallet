@@ -231,7 +231,7 @@ const Transactions = () => {
             alignItems: "center",
             justifyContent: "space-between",
             gap: { xs: 1.5, sm: 2 },
-            p: 2,
+            p: 1,
             borderRadius: 0,
             background: "#faf3e0",
             borderTop: "1px solid #000000",
@@ -276,23 +276,13 @@ const Transactions = () => {
             >
               {tx.User_Name}
             </Link>
-          </Box>
 
-          {/* Middle Section */}
-          <Box sx={{ 
-            display: "flex", 
-            alignItems: "center", 
-            gap: 2,
-            flex: 1,
-            maxWidth: "300px", // Added max-width for middle section
-            justifyContent: "center"
-          }}>
             <Chip
               label={tx.Buy_Sell === "Buy" ? "bought" : "sold"}
-              size="small"
+              variant="h6"
               sx={{
-                color: "white",
-                backgroundColor: tx.Buy_Sell === "Buy" ? "green" : "red",
+                // color: "black  !important",
+                background: tx.Buy_Sell === "Buy" ? "green  !important" : "red !important",
                 fontWeight: 600,
                 minWidth: "80px", // Fixed width for chip
               }}
@@ -304,11 +294,11 @@ const Transactions = () => {
                 color: tx.Buy_Sell === "Buy" ? "green" : "red",
                 display: "flex",
                 alignItems: "center",
-                gap: 0.5,
+                
                 minWidth: "150px", // Fixed width for amount
               }}
             >
-              {tx.Sol_Amount} sol {`(${tx.Token_Amount})`}
+              {tx.Sol_Amount} sol {`(${tx.Token_Amount}) `} <span style={{ color:'black' }}>{"  "}of <span style={{ fontWeight: "bold", color:'black' }}>{tx.Token}</span></span>
             </Typography>
 
             <Typography
@@ -319,9 +309,9 @@ const Transactions = () => {
                 minWidth: "80px", // Fixed width for token name
               }}
             >
-              of <span style={{ fontWeight: "bold" }}>{tx.Token}</span>
+              
             </Typography>
-          </Box>
+          </Box>        
 
           {/* Right Section */}
           <Box sx={{ 

@@ -1,6 +1,14 @@
 import React, { useState, useContext, useEffect } from "react";
 import { styled, keyframes } from "@mui/material/styles";
-import { Box, Typography, Button, AppBar, Container, Modal, IconButton } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Button,
+  AppBar,
+  Container,
+  Modal,
+  IconButton,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { CryptoTrans } from "../TransFunc/CryptoTrans";
 import { ToastContainer } from "react-toastify";
@@ -48,7 +56,7 @@ export default function AppAppBar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [bgColor, setBgColor] = useState(false);
   const navigate = useNavigate();
-  
+
   const { SolConnectWallet, solCurrentAccount } = useContext(CryptoTrans);
 
   useEffect(() => {
@@ -61,7 +69,9 @@ export default function AppAppBar() {
   useEffect(() => {
     const fetchSolPrice = async () => {
       try {
-        const response = await fetch("https://api.binance.com/api/v3/ticker/price?symbol=SOLUSDT");
+        const response = await fetch(
+          "https://api.binance.com/api/v3/ticker/price?symbol=SOLUSDT"
+        );
         const data = await response.json();
         setSolPrice(parseFloat(data.price).toFixed(2));
       } catch (error) {
@@ -78,16 +88,27 @@ export default function AppAppBar() {
     <>
       <StyledAppBar elevation={0}>
         <Container maxWidth="xl">
-          <Box display="flex" alignItems="center" justifyContent="space-between" py={1.5}>
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+            py={1.5}
+          >
             {/* Left Section - Logo */}
             <Box display="flex" alignItems="center">
-              <LogoTypography onClick={() => navigate("/")}>KolScan</LogoTypography>
+              <LogoTypography onClick={() => navigate("/")}>
+                KOLs Online
+              </LogoTypography>
             </Box>
 
             {/* Middle - Desktop Navigation */}
-            <Box sx={{ display: { xs: "none", md: "flex", }, gap: 2 }}>
+            <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2 }}>
               <CustomButton link="/" buttonText="Home" />
-              <CustomButton link="/trades" buttonText="Traders & Leaderboard" width='max-content !important'/>
+              <CustomButton
+                link="/trades"
+                buttonText="Traders & Leaderboard"
+                width="max-content !important"
+              />
             </Box>
 
             {/* Right Section - Price & Wallet */}
@@ -95,9 +116,15 @@ export default function AppAppBar() {
               <Box
                 component="img"
                 src="https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png"
-                sx={{ width: 24, height: 24, display: { xs: "none", sm: "block" } }}
+                sx={{
+                  width: 24,
+                  height: 24,
+                  display: { xs: "none", sm: "block" },
+                }}
               />
-              <Typography sx={{ fontSize: "16px", fontWeight: 600, color: "black" }}>
+              <Typography
+                sx={{ fontSize: "16px", fontWeight: 600, color: "black" }}
+              >
                 ${solPrice}
               </Typography>
 
@@ -116,7 +143,11 @@ export default function AppAppBar() {
                   border: "1px solid black !important",
                   borderRadius: 0,
                   transition: "all 0.5s ease-in-out",
-                  background: !solCurrentAccount ? bgColor ? "white !important" : "red !important" : "white !important",
+                  background: !solCurrentAccount
+                    ? bgColor
+                      ? "white !important"
+                      : "red !important"
+                    : "white !important",
                   color: "black",
                   "&:hover": {
                     transform: "translateX(-3px) translateY(3px)",
@@ -124,7 +155,9 @@ export default function AppAppBar() {
                   },
                 }}
               >
-                {solCurrentAccount ? solCurrentAccount.toString().substring(0, 6) : "Connect Wallet"}
+                {solCurrentAccount
+                  ? solCurrentAccount.toString().substring(0, 6)
+                  : "Connect Wallet"}
               </Button>
 
               {/* Mobile Menu Icon */}
@@ -168,7 +201,14 @@ export default function AppAppBar() {
           px: 2,
         }}
       >
-        <Box sx={{ width: "100%", maxWidth: 600, borderRadius: 2, overflow: "hidden" }}>
+        <Box
+          sx={{
+            width: "100%",
+            maxWidth: 600,
+            borderRadius: 2,
+            overflow: "hidden",
+          }}
+        >
           <SearchBar />
         </Box>
       </Modal>
