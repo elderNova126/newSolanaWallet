@@ -649,7 +649,7 @@ const AccountDashboard = () => {
                           sx={{ display: "flex", alignItems: "center", gap: 1 }}
                         >
                           <Typography variant="h6" color="green">
-                            Buy
+                          aped
                           </Typography>
                           <Typography variant="h6" color="black">
                             {transactions.buy.Sol.toFixed(2)}

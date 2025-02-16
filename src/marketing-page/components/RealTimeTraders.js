@@ -157,7 +157,6 @@ const RealTimeTraders = () => {
           </Box>
         ) : (
           <>
-
       <Box
         sx={{
           display: "grid",
@@ -168,18 +167,18 @@ const RealTimeTraders = () => {
           },
           width: "100%",
           p: 1,
-          background: "rgb(255, 211, 91)",
+          background: "rgb(236, 236, 236)",
           maxHeight: "800px",
           overflowY: "auto",
           "&::-webkit-scrollbar": {
             width: "8px",
           },
           "&::-webkit-scrollbar-thumb": {
-            backgroundColor: "rgb(200, 160, 60)", // Adjusted for contrast
+            backgroundColor: "rgb(236, 236, 236)", // Adjusted for contrast
             borderRadius: "4px",
           },
           "&::-webkit-scrollbar-track": {
-            background: "rgb(255, 211, 91)",
+            background: "rgb(236, 236, 236)",
           },
         }}
       >
@@ -204,9 +203,10 @@ const RealTimeTraders = () => {
                       flexDirection: "row",
                       alignItems: "center",
                       gap: { xs: 1, sm: 2 }, // Reduce gap for smaller screens
-                      p: 1,
+                      pl: 1,pr: 1,pt: 1,
                       borderRadius: 0,
                       background: "#faf3e0",
+                      borderBottom:"dotted 1px black",
                     }}
                   >
                     <Link
@@ -317,7 +317,7 @@ const RealTimeTraders = () => {
                                 display: "inline-block", // To ensure width is respected
                               }}
                             >
-                              {item.Buy_Sell}
+                              {item.Buy_Sell === "Buy" ? 'Aped':'flipped'}
                             </Typography>
                             {item.Buy_Sell === "Buy" && (
                               <Typography

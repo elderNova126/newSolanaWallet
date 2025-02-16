@@ -30,9 +30,9 @@ const slideDown = keyframes`
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   position: "fixed",
-  backgroundColor: "#faf3e0 !important",
+  background: "#faf3e0 !important",
   backdropFilter: "blur(10px)",
-  borderBottom: "3px solid rgba(0, 0, 0, 0.8)",
+  borderBottom: "2px solid rgba(0, 0, 0, 0.8)",
   animation: `${slideDown} 0.5s ease-out`,
 }));
 
@@ -51,8 +51,7 @@ const LogoTypography = styled(Typography)(({ theme }) => ({
 }));
 
 export default function AppAppBar() {
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [solPrice, setSolPrice] = useState(null);
+  const [searchOpen, setSearchOpen] = useState(false);  
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [bgColor, setBgColor] = useState(false);
   const navigate = useNavigate();
@@ -66,33 +65,18 @@ export default function AppAppBar() {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    const fetchSolPrice = async () => {
-      try {
-        const response = await fetch(
-          "https://api.binance.com/api/v3/ticker/price?symbol=SOLUSDT"
-        );
-        const data = await response.json();
-        setSolPrice(parseFloat(data.price).toFixed(2));
-      } catch (error) {
-        console.error("Error fetching SOL price:", error);
-      }
-    };
-
-    fetchSolPrice();
-    const interval = setInterval(fetchSolPrice, 10000);
-    return () => clearInterval(interval);
-  }, []);
+  
 
   return (
     <>
       <StyledAppBar elevation={0}>
-        <Container maxWidth="xl">
+        <Container maxWidth="xl" sx={{background: "#faf3e0 !important",}}>
           <Box
             display="flex"
             alignItems="center"
             justifyContent="space-between"
             py={1.5}
+            sx={{background: "#faf3e0 !important",}}
           >
             {/* Left Section - Logo */}
             <Box display="flex" alignItems="center">
@@ -109,25 +93,12 @@ export default function AppAppBar() {
                 buttonText="Traders & Leaderboard"
                 width="max-content !important"
               />
+              
             </Box>
 
             {/* Right Section - Price & Wallet */}
-            <Box display="flex" alignItems="center" gap={2}>
-              <Box
-                component="img"
-                src="https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png"
-                sx={{
-                  width: 24,
-                  height: 24,
-                  display: { xs: "none", sm: "block" },
-                }}
-              />
-              <Typography
-                sx={{ fontSize: "16px", fontWeight: 600, color: "black" }}
-              >
-                ${solPrice}
-              </Typography>
-
+            <Box display="flex" alignItems="center" gap={2}>             
+              <Typography sx={{color:'black'}}>Last updated: X Seconds ago</Typography>
               <Button
                 onClick={() => {
                   if (!solCurrentAccount) {
@@ -187,7 +158,7 @@ export default function AppAppBar() {
       </StyledAppBar>
 
       {/* Spacer */}
-      <Box sx={{ height: "72px" }} />
+      <Box sx={{ height: "68px" }} />
 
       {/* Search Modal */}
       <Modal

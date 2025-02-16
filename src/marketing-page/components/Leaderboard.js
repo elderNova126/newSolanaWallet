@@ -12,8 +12,9 @@ import {
 import { alpha, useTheme } from "@mui/material/styles";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
+import CustomButton from "./CustomButton";
 
-const Leaderboard = () => {
+const Leaderboard = (count) => {
   const [leader, setLeader] = useState([]);
   const [copied, setCopied] = useState(false);
   const [copiedShortWallet, setCopiedShortWallet] = useState("");
@@ -41,9 +42,10 @@ const Leaderboard = () => {
         width: "100%",
         maxHeight: "800px", // Set a fixed height for the container
         overflowY: "auto", // Enable vertical scrolling when content exceeds the height
+        overflowX: "hidden",
         background: "#009B77",
         "&::-webkit-scrollbar": {
-          width: "8px", // Adjust width of the scrollbar
+          width: "4px", // Adjust width of the scrollbar
         },
         "&::-webkit-scrollbar-thumb": {
           backgroundColor: "#009B77", // Scrollbar thumb color
@@ -53,7 +55,7 @@ const Leaderboard = () => {
         },
       }}
     >
-      {leader.map((tx, index) => (
+      {leader.slice(0, count).map((tx, index) => (
         <Paper
           key={tx.id}
           elevation={0}
@@ -113,9 +115,8 @@ const Leaderboard = () => {
                 height: 40,
               }}
             />
-            {tx.username}
           </Link>
-
+          <Box sx={{ color: "black" }}>{tx.username}</Box>
           <Box sx={{ flexGrow: 1 }}>
             <Box
               sx={{ display: "flex", alignItems: "center", gap: 1, mb: 0.5 }}
@@ -129,7 +130,7 @@ const Leaderboard = () => {
                 }}
               >
                 <Avatar
-                  src="/images/Twitter.webp" 
+                  src="/images/Twitter.webp"
                   alt={`${tx.name} pfp`}
                   sx={{
                     textDecoration: "none",
@@ -181,7 +182,7 @@ const Leaderboard = () => {
             </Typography>
           </Box>
         </Paper>
-      ))}
+      ))}      
     </Box>
   );
 };

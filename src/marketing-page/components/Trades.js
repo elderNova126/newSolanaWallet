@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, {useContext} from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -6,10 +6,10 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import RealTimeTraders from "./RealTimeTraders";
 import Leaderboard from "./Leaderboard";
-
+import { CryptoTrans } from "../TransFunc/CryptoTrans";
 
 export default function DashBoard() {
-
+  const { solCurrentAccount } = useContext(CryptoTrans);
   return (
     <Container
       maxWidth={false}
@@ -18,8 +18,12 @@ export default function DashBoard() {
         // overflowX: "hidden", // Ensures no horizontal scrolling
         background: "#faf3e0",
         px: '5%',
+        minHeight: "92vh",
+        alignContent:"center",
       }}
     >      
+    {solCurrentAccount ? (
+        <> 
       {/* Main Grid Section */}
       <Box sx={{borderLeft: "2px solid #000000 !important",
         borderRight: "2px solid #000000",}}>
@@ -42,7 +46,7 @@ export default function DashBoard() {
                 sx={{
                   width: "100%",
                   borderRadius: 0, // Setting border radius to 0
-                  background: "rgb(255, 211, 91)",
+                  background: "rgb(236, 236, 236)",
                   p:0,
                 }}
               >
@@ -50,9 +54,9 @@ export default function DashBoard() {
                   variant="h5"
                   sx={{
                     fontFamily: "VT323, monospace",
-                    fontSize: { xs: "2.5rem", sm: "3rem", md: "4rem" },
+                    fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
                     fontWeight: 700,
-                    background: "rgb(252, 101, 101) 0%",
+                    background: "rgb(102, 85, 179) 0%",
                     backgroundClip: "text",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
@@ -84,7 +88,7 @@ export default function DashBoard() {
                   variant="h5"
                   sx={{
                     fontFamily: "VT323, monospace",
-                    fontSize: { xs: "2.5rem", sm: "3rem", md: "4rem" },
+                    fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
                     fontWeight: 700,
                     background: "rgb(103, 255, 141) 0%",
                     backgroundClip: "text",
@@ -97,11 +101,19 @@ export default function DashBoard() {
                 >
                   Realized PnL Leaderboard
                 </Typography>
-              <Leaderboard/>
+              <Leaderboard count={100}/>
             </Paper>
           </Grid>
         </Grid>
       </Box>
+      </>
+      ) : (
+        <Box sx={{ textAlign: "center", padding: 4, height:"100%" }}>
+          <Typography variant="h5" sx={{ fontWeight: 700, color:'black' }}>
+            Please Connect Your Wallet to Access the Dashboard
+          </Typography>          
+        </Box>
+      )}
     </Container>
   );
 }

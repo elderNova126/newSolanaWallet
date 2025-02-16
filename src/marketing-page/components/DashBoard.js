@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -12,18 +12,26 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Faqs from "./Faqs";
+import { CryptoTrans } from "../TransFunc/CryptoTrans";
+import Leaderboard from "./Leaderboard";
+import { Link } from "@mui/material";
 
 export default function DashBoard() {
+  const { solCurrentAccount } = useContext(CryptoTrans);
   return (
     <Container
       maxWidth={false}
       disableGutters
+      
       sx={{
         background: "#faf3e0",
         px: "5%",
+        minHeight: "92vh",
+        alignContent:"center",
       }}
     >
-      {/* Hero Section */}
+      {solCurrentAccount ? (
+        <>
       <Box
         sx={{
           textAlign: "center",
@@ -35,7 +43,7 @@ export default function DashBoard() {
           component="h1"
           sx={{
             fontFamily: "VT323, monospace",
-            fontSize: { xs: "2.5rem", sm: "3rem", md: "4rem" },
+            fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
             fontWeight: 800,
             background: "rgb(0, 0, 0) 0%",
             backgroundClip: "text",
@@ -71,7 +79,7 @@ export default function DashBoard() {
       >
         <Grid container spacing={0} sx={{ width: "100%", flexWrap: "wrap" }}>
           {/* Left Column */}
-          <Grid item xs={12} lg={8}>
+          <Grid item xs={12} lg={7}>
             <Box
               sx={{
                 display: "flex",
@@ -104,7 +112,7 @@ export default function DashBoard() {
                   variant="h5"
                   sx={{
                     fontFamily: "VT323, monospace",
-                    fontSize: { xs: "2.5rem", sm: "3rem", md: "4rem" },
+                    fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
                     fontWeight: 700,
                     background: "rgb(0, 0, 0) 0%",
                     backgroundClip: "text",
@@ -124,17 +132,17 @@ export default function DashBoard() {
                 sx={{
                   width: "100%",
                   borderRadius: 0, // Setting border radius to 0
-                  pt: 3,
-                  background: "darkolivegreen",
+                  background: "rgb(241, 238, 238) 0%",
                 }}
               >
                 <Typography
                   variant="h5"
                   sx={{
                     fontFamily: "VT323, monospace",
-                    fontSize: { xs: "2.5rem", sm: "3rem", md: "4rem" },
+                    fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
                     fontWeight: 800,
-                    background: "rgb(0, 0, 0) 0%",
+                    // background: "rgb(0, 0, 0) 0%",
+                    color:'black',
                     backgroundClip: "text",
                     textAlign: "center",
                     borderRadius: 0, // Setting border radius to 0
@@ -148,7 +156,7 @@ export default function DashBoard() {
           </Grid>
 
           {/* Right Column - Tokenomics */}
-          <Grid item xs={12} lg={4}>
+          <Grid item xs={12} lg={5}>
             <Paper
               elevation={0}
               sx={{
@@ -188,34 +196,52 @@ export default function DashBoard() {
                   buttonText="Buy $kolsOnline"
                 />
               </Box>
-              <Box sx={{ borderBottom: "2px solid #000000" }}>
-                <img
-                  src="https://www.ladobe.com.mx/wp-content/uploads/2021/09/b0abbb0b-21ca-e423-ed27-b98869c984a7.gif" // Replace with your image URL
-                  alt="Pong Coin Logo"
-                  style={{ width: "100%", height: "100%" }} // Adjust the size and margin
-                />
-              </Box>
               <Typography
-                variant="h5"
-                sx={{
-                  fontFamily: "VT323, monospace",
-                  fontSize: { xs: "2.5rem", sm: "3rem", md: "4rem" },
-                  fontWeight: 700,
-                  background: "rgb(0, 0, 0) 0%",
-                  backgroundClip: "text",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  borderRadius: 0, // Setting border radius to 0
-                  pl: 3,
-                }}
-              >
-                Tokenomics Overview
-              </Typography>
-              <Tokenomics />
+                  variant="h5"
+                  sx={{
+                    fontFamily: "VT323, monospace",
+                    fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
+                    fontWeight: 700,
+                    background: "rgb(0, 0, 0) 0%",
+                    backgroundClip: "text",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    borderRadius: 0, // Setting border radius to 0
+                    borderBottom: "2px solid #000000",
+                    pl: 3,
+                  }}
+                >
+                  Leaderboard
+                </Typography>
+              <Leaderboard count={9}/>
+              <Link href={`/trades`}>
+              <Typography
+                  variant="h5"
+                  sx={{
+                    textAlign:"center",
+                    background: "rgb(0, 0, 0) 0%",
+                    backgroundClip: "text",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    borderRadius: 0, // Setting border radius to 0
+                    p: 3,
+                  }}
+                >
+                  Show Detail
+                </Typography>
+                </Link>
             </Paper>
           </Grid>
         </Grid>
       </Box>
+      </>
+      ) : (
+        <Box sx={{ textAlign: "center", padding: 4, height:"100%" }}>
+          <Typography variant="h5" sx={{ fontWeight: 700, color:'black' }}>
+            Please Connect Your Wallet to Access the Dashboard
+          </Typography>          
+        </Box>
+      )}
     </Container>
   );
 }

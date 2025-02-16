@@ -19,7 +19,7 @@ const SearchBar = () => {
           display: "flex",
           alignItems: "center",
           width: "100%",
-          p: 2,
+          pl: 2,pr: 2,pt: 2,
           gap: 1,
           backgroundColor: "#faf3e0 !important",
           borderRadius: 0,
@@ -33,7 +33,7 @@ const SearchBar = () => {
               handleSearchChange();
             }
           }}
-          placeholder="Enter Wallet Address"
+          placeholder="token/trader address"
           fullWidth
           sx={{
             borderRadius: 0,

@@ -217,11 +217,13 @@ const Transactions = () => {
   }, []);
   console.log("##################", transactions);
   return (
-    <Box sx={{ 
-      width: "100%", 
-      background: "#faf3e0",
-      px: 3  // Added horizontal padding
-    }}>
+    <Box
+      sx={{
+        width: "100%",
+        background: "#faf3e0",
+        px: 3, // Added horizontal padding
+      }}
+    >
       {transactions.map((tx) => (
         <Paper
           key={tx.Wallet}
@@ -240,12 +242,14 @@ const Transactions = () => {
           }}
         >
           {/* Left Section */}
-          <Box sx={{ 
-            display: "flex", 
-            alignItems: "center", 
-            gap: 2,
-            minWidth: "120px", // Fixed width for avatar and name
-          }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+              minWidth: "120px", // Fixed width for avatar and name
+            }}
+          >
             <Link
               href={`/account/${tx.Wallet}`}
               sx={{
@@ -267,38 +271,50 @@ const Transactions = () => {
             </Link>
 
             <Link
-              href={`${tx.id}.html`}
+              href={`/account/${tx.Wallet}`}
               sx={{
                 textDecoration: "none",
                 color: "black",
-                fontWeight: 600,
+                fontSize: "1rem",
+                fontWeight: 700,
               }}
             >
               {tx.User_Name}
             </Link>
 
             <Chip
-              label={tx.Buy_Sell === "Buy" ? "bought" : "sold"}
-              variant="h6"
+              label={tx.Buy_Sell === "Buy" ? "aped" : "flipped"}
+              color="white  !important"
               sx={{
-                // color: "black  !important",
-                background: tx.Buy_Sell === "Buy" ? "green  !important" : "red !important",
+                fontSize: "1rem",
+                color: "white  !important",
+                background:
+                  tx.Buy_Sell === "Buy"
+                    ? "green  !important"
+                    : "red !important",
                 fontWeight: 600,
-                minWidth: "80px", // Fixed width for chip
+                minWidth: "60px", // Fixed width for chip
               }}
             />
-            
+
             <Typography
               variant="body2"
               sx={{
                 color: tx.Buy_Sell === "Buy" ? "green" : "red",
                 display: "flex",
                 alignItems: "center",
-                
+
                 minWidth: "150px", // Fixed width for amount
               }}
             >
-              {tx.Sol_Amount} sol {`(${tx.Token_Amount}) `} <span style={{ color:'black' }}>{"  "}of <span style={{ fontWeight: "bold", color:'black' }}>{tx.Token}</span></span>
+              {tx.Sol_Amount} SOL {`(${tx.Token_Amount}) `}{" "}
+              <Link href={`https://dexscreener.com/solana/${tx.Link.split("/")[4]}`}>
+                <span
+                  style={{ fontWeight: "bold", color: "black", paddingLeft: 5 }}
+                >
+                  {tx.Token}
+                </span>
+              </Link>
             </Typography>
 
             <Typography
@@ -308,16 +324,16 @@ const Transactions = () => {
                 fontWeight: 500,
                 minWidth: "80px", // Fixed width for token name
               }}
-            >
-              
-            </Typography>
-          </Box>        
+            ></Typography>
+          </Box>
 
           {/* Right Section */}
-          <Box sx={{ 
-            minWidth: "50px", // Fixed width for timestamp
-            textAlign: "right"
-          }}>
+          <Box
+            sx={{
+              minWidth: "50px", // Fixed width for timestamp
+              textAlign: "right",
+            }}
+          >
             <Tooltip title="View transaction">
               <Link
                 href={tx.Link}

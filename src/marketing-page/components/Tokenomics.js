@@ -49,14 +49,14 @@ const Tokenomics = () => {
     <Box>
       {tiers.map((tier, index) => (
         <Grid item xs={12} key={index}>
-          <Card elevation={0} sx={{ background: "rgb(224, 250, 242) !important", borderRadius:0}}>
+          <Card elevation={0} sx={{ background: "rgb(224, 250, 242) !important", borderRadius:0,p:1}}>
             <Box sx={{ display: "flex", alignItems: "center", pl: "20%" }}>
-              <ListItemIcon sx={{ minWidth: 36 }}>{tier.icon}</ListItemIcon>
+              <ListItemIcon sx={{ minWidth: 30 }}>{tier.icon}</ListItemIcon>
               <Typography
                 variant="h6"
-                fontWeight="700"
+                fontWeight="500"
                 color={tier.color}
-                sx={{ fontSize: "1.5rem" }}
+                sx={{ fontSize: "1.25rem" }}
               >
                 {tier.title}
               </Typography>
@@ -83,8 +83,8 @@ const Tokenomics = () => {
                     primary={feature}
                     sx={{
                       "& .MuiListItemText-primary": {
-                        color: theme.palette.text.secondary,
-                        fontSize: "1.2rem",
+                        color: 'black',
+                        fontSize: "1rem",
                       },
                     }}
                   />

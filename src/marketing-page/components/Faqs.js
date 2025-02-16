@@ -75,7 +75,6 @@ const Faqs = () => {
             id={`panel${index + 1}d-header`}
             sx={{
               px: { xs: 1, sm: 2 },
-              py: 2,
               borderRadius: '12px',
               transition: 'all 0.3s ease',
               '&:hover': {
@@ -91,9 +90,7 @@ const Faqs = () => {
               sx={{
                 fontSize: { xs: '0.95rem', sm: '1rem' },
                 fontWeight: 600,
-                color: expanded === `panel${index + 1}` 
-                  ? theme.palette.primary.main 
-                  : theme.palette.text.primary,
+                color: 'black',
                 transition: 'color 0.3s ease',
               }}
             >
@@ -112,7 +109,7 @@ const Faqs = () => {
             <Typography
               variant="body2"
               sx={{
-                color: theme.palette.text.secondary,
+                color: 'black',
                 lineHeight: 1.6,
                 maxWidth: { sm: "100%", md: "90%" },
                 mb: faq.link ? 1 : 0,
