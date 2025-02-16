@@ -19,145 +19,16 @@ import { CryptoTrans } from "../TransFunc/CryptoTrans";
 import { PublicKey } from "@solana/web3.js";
 import { Link, useParams } from "react-router-dom";
 
-const dataLists = [
-  {
-    image:
-      "https://cdn.kolscan.io/profiles/3h65MmPZksoKKyEpEjnWU2Yk2iYT5oZDNitGy5cTaxoE.png",
-    name: "Kev",
-    sol_amount: "2.04",
-    usd_amount: "$51.8",
-    b_type: "Buy",
-    b_amount: "235.3 Sol (23.4m)",
-    b_date: "2d",
-    s_type: "Sell",
-    s_amount: "90.91 Sol (18.4m)",
-    s_date: "2d",
-  },
-  {
-    image:
-      "https://cdn.kolscan.io/profiles/3h65MmPZksoKKyEpEjnWU2Yk2iYT5oZDNitGy5cTaxoE.png",
-    name: "Kev",
-    sol_amount: "2.04",
-    usd_amount: "$51.8",
-    b_type: "Buy",
-    b_amount: "235.3 Sol (23.4m)",
-    b_date: "2d",
-    s_type: "Sell",
-    s_amount: "90.91 Sol (18.4m)",
-    s_date: "2d",
-  },
-  {
-    image:
-      "https://cdn.kolscan.io/profiles/3h65MmPZksoKKyEpEjnWU2Yk2iYT5oZDNitGy5cTaxoE.png",
-    name: "Kev",
-    sol_amount: "2.04",
-    usd_amount: "$51.8",
-    b_type: "Buy",
-    b_amount: "235.3 Sol (23.4m)",
-    b_date: "2d",
-    s_type: "Sell",
-    s_amount: "90.91 Sol (18.4m)",
-    s_date: "2d",
-  },
-  {
-    image:
-      "https://cdn.kolscan.io/profiles/3h65MmPZksoKKyEpEjnWU2Yk2iYT5oZDNitGy5cTaxoE.png",
-    name: "Kev",
-    sol_amount: "2.04",
-    usd_amount: "$51.8",
-    b_type: "Buy",
-    b_amount: "235.3 Sol (23.4m)",
-    b_date: "2d",
-    s_type: "Sell",
-    s_amount: "90.91 Sol (18.4m)",
-    s_date: "2d",
-  },
-  {
-    image:
-      "https://cdn.kolscan.io/profiles/3h65MmPZksoKKyEpEjnWU2Yk2iYT5oZDNitGy5cTaxoE.png",
-    name: "Kev",
-    sol_amount: "2.04",
-    usd_amount: "$51.8",
-    b_type: "Buy",
-    b_amount: "235.3 Sol (23.4m)",
-    b_date: "2d",
-    s_type: "Sell",
-    s_amount: "90.91 Sol (18.4m)",
-    s_date: "2d",
-  },
-  {
-    image:
-      "https://cdn.kolscan.io/profiles/3h65MmPZksoKKyEpEjnWU2Yk2iYT5oZDNitGy5cTaxoE.png",
-    name: "Kev",
-    sol_amount: "2.04",
-    usd_amount: "$51.8",
-    b_type: "Buy",
-    b_amount: "235.3 Sol (23.4m)",
-    b_date: "2d",
-    s_type: "Sell",
-    s_amount: "90.91 Sol (18.4m)",
-    s_date: "2d",
-  },
-  {
-    image:
-      "https://cdn.kolscan.io/profiles/3h65MmPZksoKKyEpEjnWU2Yk2iYT5oZDNitGy5cTaxoE.png",
-    name: "Kev",
-    sol_amount: "2.04",
-    usd_amount: "$51.8",
-    b_type: "Buy",
-    b_amount: "235.3 Sol (23.4m)",
-    b_date: "2d",
-    s_type: "Sell",
-    s_amount: "90.91 Sol (18.4m)",
-    s_date: "2d",
-  },
-  {
-    image:
-      "https://cdn.kolscan.io/profiles/3h65MmPZksoKKyEpEjnWU2Yk2iYT5oZDNitGy5cTaxoE.png",
-    name: "Kev",
-    sol_amount: "2.04",
-    usd_amount: "$51.8",
-    b_type: "Buy",
-    b_amount: "235.3 Sol (23.4m)",
-    b_date: "2d",
-    s_type: "Sell",
-    s_amount: "90.91 Sol (18.4m)",
-    s_date: "2d",
-  },
-  {
-    image:
-      "https://cdn.kolscan.io/profiles/3h65MmPZksoKKyEpEjnWU2Yk2iYT5oZDNitGy5cTaxoE.png",
-    name: "Kev",
-    sol_amount: "2.04",
-    usd_amount: "$51.8",
-    b_type: "Buy",
-    b_amount: "235.3 Sol (23.4m)",
-    b_date: "2d",
-    s_type: "Sell",
-    s_amount: "90.91 Sol (18.4m)",
-    s_date: "2d",
-  },
-  {
-    image:
-      "https://cdn.kolscan.io/profiles/3h65MmPZksoKKyEpEjnWU2Yk2iYT5oZDNitGy5cTaxoE.png",
-    name: "Kev",
-    sol_amount: "2.04",
-    usd_amount: "$51.8",
-    b_type: "Buy",
-    b_amount: "235.3 Sol (23.4m)",
-    b_date: "2d",
-    s_type: "Sell",
-    s_amount: "90.91 Sol (18.4m)",
-    s_date: "2d",
-  },
-];
+
 const AccountDashboard = () => {
+
   const params = useParams();
   const id = params.id;
   const [holding, setHolding] = useState([]);
   const [defi_trades, setDefi_trades] = useState([]);
   const [tokenPnl, setTokenPnl] = useState([]);
   const [selectedValue, setSelectedValue] = useState("recent");
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
   // const [mergedDataSell, setMergedDataSell] = useState([]);
   // const [mergedDataBuy, setMergedDataBuy] = useState([]);
@@ -246,7 +117,7 @@ const AccountDashboard = () => {
         };
       }
 
-      
+
       const type = Buy_Sell.toLowerCase();
       const parsedToken = parseTokenAmount(Token_Amount);
       result[Token][type].Token += parsedToken.value;
@@ -264,7 +135,7 @@ const AccountDashboard = () => {
   useEffect(() => {
     setLoading(true);
     // Fetch data from the API
-    fetch(`http://24.199.120.137:5000/account/${id}`)
+    fetch(`${baseUrl}/account/${id}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

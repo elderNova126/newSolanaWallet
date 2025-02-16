@@ -15,7 +15,8 @@ import { alpha, useTheme } from "@mui/material/styles";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 
-const socket = io("http://24.199.120.137:5000"); // Connect to Flask-SocketIO server
+const baseUrl = process.env.REACT_APP_BASE_URL;
+const socket = io(baseUrl); // Connect to Flask-SocketIO server
 
 const RealTimeTraders = () => {
   const theme = useTheme();
@@ -76,7 +77,7 @@ const RealTimeTraders = () => {
   }
   useEffect(() => {
     setLoading(true);
-    fetch("http://24.199.120.137:5000/trades")
+    fetch(`${baseUrl}/trades`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

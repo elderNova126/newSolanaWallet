@@ -18,10 +18,11 @@ const Leaderboard = (count) => {
   const [leader, setLeader] = useState([]);
   const [copied, setCopied] = useState(false);
   const [copiedShortWallet, setCopiedShortWallet] = useState("");
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
   useEffect(() => {
     // Fetch data from the API
-    fetch("http://24.199.120.137:5000/leader")
+    fetch(`${baseUrl}/leader`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

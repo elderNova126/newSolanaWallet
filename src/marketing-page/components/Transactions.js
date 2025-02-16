@@ -12,145 +12,11 @@ import { alpha, useTheme } from "@mui/material/styles";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 
-// const transactions = [
-//   {
-//     id: "BTf4A2exGK9BCVDNzy65b9dUzXgMqB4weVkvTMFQsadd",
-//     name: "Kev",
-//     amount: "2.04",
-//     sol: "51.8m",
-//     token: "Gwenchana",
-//     price: "0.0000081",
-//     image:
-//       "https://cdn.kolscan.io/profiles/3h65MmPZksoKKyEpEjnWU2Yk2iYT5oZDNitGy5cTaxoE.png",
-//     time: "1m ago",
-//     profit: "+12.5%",
-//     txLink:
-//       "https://solscan.io/tx/7eNBgymB54NjfHfokFkqAAxyqMYQsFK2vsrUh7x8aXsTmpsgLJSKp1cNDzNT6SqJG3hCCzd8yoNrij1w7jRQtzP",
-//   },
-//   {
-//     id: "ATFRUwvyMh61w2Ab6AZxUyxsAfiiuG1RqL6iv3Vi9q2B",
-//     name: "Marcell",
-//     amount: "50.7",
-//     sol: "557k",
-//     token: "SSE",
-//     price: "0.019",
-//     image:
-//       "https://cdn.kolscan.io/profiles/3h65MmPZksoKKyEpEjnWU2Yk2iYT5oZDNitGy5cTaxoE.png",
-//     time: "2m ago",
-//     profit: "+8.3%",
-//     txLink:
-//       "https://solscan.io/tx/4UnTRwH6enGDhfqSzUXBUdyryf3AyUpM5E2Qun8aaooA3wJv1f1RZeW8aFt7wS9TMad15BJZDra4bqdEqqRTMm1U",
-//   },
-//   // Add 8 more similar transactions with different values
-//   {
-//     id: "CTFRUwvyMh61w2Ab6AZxUyxsAfiiuG1RqL6iv3Vi9q2C",
-//     name: "Alex",
-//     amount: "35.2",
-//     sol: "420k",
-//     token: "PEPE",
-//     price: "0.025",
-//     image:
-//       "https://cdn.kolscan.io/profiles/3h65MmPZksoKKyEpEjnWU2Yk2iYT5oZDNitGy5cTaxoE.png",
-//     time: "5m ago",
-//     profit: "+15.7%",
-//     txLink: "https://solscan.io/tx/sample3",
-//   },
-//   {
-//     id: "DTFRUwvyMh61w2Ab6AZxUyxsAfiiuG1RqL6iv3Vi9q2D",
-//     name: "Sarah",
-//     amount: "18.9",
-//     sol: "283k",
-//     token: "DOGE",
-//     price: "0.012",
-//     image:
-//       "https://cdn.kolscan.io/profiles/3h65MmPZksoKKyEpEjnWU2Yk2iYT5oZDNitGy5cTaxoE.png",
-//     time: "8m ago",
-//     profit: "+5.2%",
-//     txLink: "https://solscan.io/tx/sample4",
-//   },
-//   {
-//     id: "ETFRUwvyMh61w2Ab6AZxUyxsAfiiuG1RqL6iv3Vi9q2E",
-//     name: "Mike",
-//     amount: "42.6",
-//     sol: "639k",
-//     token: "SHIB",
-//     price: "0.008",
-//     image:
-//       "https://cdn.kolscan.io/profiles/3h65MmPZksoKKyEpEjnWU2Yk2iYT5oZDNitGy5cTaxoE.png",
-//     time: "12m ago",
-//     profit: "+19.8%",
-//     txLink: "https://solscan.io/tx/sample5",
-//   },
-//   {
-//     id: "FTFRUwvyMh61w2Ab6AZxUyxsAfiiuG1RqL6iv3Vi9q2F",
-//     name: "Emma",
-//     amount: "27.3",
-//     sol: "410k",
-//     token: "BONK",
-//     price: "0.015",
-//     image:
-//       "https://cdn.kolscan.io/profiles/GfXQesPe3Zuwg8JhAt6Cg8euJDTVx751enp9EQQmhzPH.png",
-//     time: "15m ago",
-//     profit: "+11.4%",
-//     txLink: "https://solscan.io/tx/sample6",
-//   },
-//   {
-//     id: "FTFRUwvyMh61w2Ab6AZxUyxsAfiiuG1RqL6iv3Vi9q2F",
-//     name: "Emma",
-//     amount: "27.3",
-//     sol: "410k",
-//     token: "BONK",
-//     price: "0.015",
-//     image:
-//       "https://cdn.kolscan.io/profiles/GfXQesPe3Zuwg8JhAt6Cg8euJDTVx751enp9EQQmhzPH.png",
-//     time: "15m ago",
-//     profit: "+11.4%",
-//     txLink: "https://solscan.io/tx/sample6",
-//   },
-//   {
-//     id: "FTFRUwvyMh61w2Ab6AZxUyxsAfiiuG1RqL6iv3Vi9q2F",
-//     name: "Emma",
-//     amount: "27.3",
-//     sol: "410k",
-//     token: "BONK",
-//     price: "0.015",
-//     image:
-//       "https://cdn.kolscan.io/profiles/GfXQesPe3Zuwg8JhAt6Cg8euJDTVx751enp9EQQmhzPH.png",
-//     time: "15m ago",
-//     profit: "+11.4%",
-//     txLink: "https://solscan.io/tx/sample6",
-//   },
-//   {
-//     id: "FTFRUwvyMh61w2Ab6AZxUyxsAfiiuG1RqL6iv3Vi9q2F",
-//     name: "Emma",
-//     amount: "27.3",
-//     sol: "410k",
-//     token: "BONK",
-//     price: "0.015",
-//     image:
-//       "https://cdn.kolscan.io/profiles/GfXQesPe3Zuwg8JhAt6Cg8euJDTVx751enp9EQQmhzPH.png",
-//     time: "15m ago",
-//     profit: "+11.4%",
-//     txLink: "https://solscan.io/tx/sample6",
-//   },
-//   {
-//     id: "FTFRUwvyMh61w2Ab6AZxUyxsAfiiuG1RqL6iv3Vi9q2F",
-//     name: "Emma",
-//     amount: "27.3",
-//     sol: "410k",
-//     token: "BONK",
-//     price: "0.015",
-//     image:
-//       "https://cdn.kolscan.io/profiles/GfXQesPe3Zuwg8JhAt6Cg8euJDTVx751enp9EQQmhzPH.png",
-//     time: "15m ago",
-//     profit: "+11.4%",
-//     txLink: "https://solscan.io/tx/sample6",
-//   },
-// ];
-
 const Transactions = () => {
+
   const theme = useTheme();
   const [transactions, setTransactions] = useState([]);
+  const baseUrl = process.env.REACT_APP_BASE_URL;
   const getTimeDifference = (dateTime1, dateTime2) => {
     const date1 = new Date(dateTime1);
     const date2 = new Date(dateTime2);
@@ -201,7 +67,7 @@ const Transactions = () => {
     return now.toLocaleString("en-US", options).replace(",", "");
   }
   useEffect(() => {
-    fetch("http://24.199.120.137:5000/latest")
+    fetch(`${baseUrl}/latest`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
