@@ -72,7 +72,7 @@ const RealTimeTraders = () => {
       second: "2-digit",
       hour12: false, // 24-hour format
     };
-    return now.toLocaleString("en-US", options).replace(",", "")+" GMT+0000";
+    return now.toLocaleString("en-US", options).replace(",", "")+" GMT+0100";
   }
   useEffect(() => {
     setLoading(true);
