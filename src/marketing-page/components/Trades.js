@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import RealTimeTraders from "./RealTimeTraders";
 import Leaderboard from "./Leaderboard";
+import MemeTokens from "./MemeTokens";
 import { CryptoTrans } from "../TransFunc/CryptoTrans";
 
 export default function DashBoard() {
@@ -101,7 +102,8 @@ export default function DashBoard() {
                 >
                   Realized PnL Leaderboard
                 </Typography>
-              <Leaderboard count={100}/>
+              {/* <Leaderboard count={100}/> */}
+              <MemeTokens />
             </Paper>
           </Grid>
         </Grid>

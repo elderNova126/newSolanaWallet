@@ -9,7 +9,7 @@ import Footer from "./components/Footer";
 // import AccountDetail from "./components/AccountDetail";
 import AccountDetail from "./components/AccountDashboard";
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route,Navigate } from "react-router-dom";
 export default function MarketingPage(props) {
   return (
     <AppTheme {...props}>
@@ -19,8 +19,10 @@ export default function MarketingPage(props) {
         <BrowserRouter>
           <AppAppBar />
           <Routes>
-            <Route exact path="/" element={<DashBoard />} />
+            <Route path="/" element={<Navigate to="/about" />} />
+            <Route exact path="/about" element={<DashBoard />} />
             <Route path="/trades" element={<Trade />} />
+            <Route path="/topKols" element={<Trade />} />
             <Route path="/account/:id" element={<AccountDetail />} />
           </Routes>
         </BrowserRouter>

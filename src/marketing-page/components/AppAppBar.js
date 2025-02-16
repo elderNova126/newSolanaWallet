@@ -51,7 +51,7 @@ const LogoTypography = styled(Typography)(({ theme }) => ({
 }));
 
 export default function AppAppBar() {
-  const [searchOpen, setSearchOpen] = useState(false);  
+  const [searchOpen, setSearchOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [bgColor, setBgColor] = useState(false);
   const navigate = useNavigate();
@@ -65,18 +65,18 @@ export default function AppAppBar() {
     return () => clearInterval(interval);
   }, []);
 
-  
+
 
   return (
     <>
       <StyledAppBar elevation={0}>
-        <Container maxWidth="xl" sx={{background: "#faf3e0 !important",}}>
+        <Container maxWidth="xl" sx={{ background: "#faf3e0 !important", }}>
           <Box
             display="flex"
             alignItems="center"
             justifyContent="space-between"
             py={1.5}
-            sx={{background: "#faf3e0 !important",}}
+            sx={{ background: "#faf3e0 !important", }}
           >
             {/* Left Section - Logo */}
             <Box display="flex" alignItems="center">
@@ -87,18 +87,21 @@ export default function AppAppBar() {
 
             {/* Middle - Desktop Navigation */}
             <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2 }}>
-              <CustomButton link="/" buttonText="Home" />
-              <CustomButton
+              <CustomButton link="/" buttonText="Top Kols" />
+              <CustomButton link="/" buttonText="Trending" />
+              <CustomButton link="/" buttonText="Memes" />
+              <CustomButton link="/" buttonText="Live" />
+              {/* <CustomButton
                 link="/trades"
                 buttonText="Traders & Leaderboard"
                 width="max-content !important"
-              />
-              
+              /> */}
+
             </Box>
 
             {/* Right Section - Price & Wallet */}
-            <Box display="flex" alignItems="center" gap={2}>             
-              <Typography sx={{color:'black'}}>Last updated: X Seconds ago</Typography>
+            <Box display="flex" alignItems="center" gap={2}>
+              <Typography sx={{ color: 'black' }}>Last updated: X Seconds ago</Typography>
               <Button
                 onClick={() => {
                   if (!solCurrentAccount) {
@@ -150,8 +153,11 @@ export default function AppAppBar() {
               gap={2}
               sx={{ py: 2, background: "#faf3e0" }}
             >
-              <CustomButton link="/" buttonText="Home" />
-              <CustomButton link="/trades" buttonText="Traders & Leaderboard" />
+              <CustomButton link="/" buttonText="Top Kols" />
+              <CustomButton link="/" buttonText="Trending" />
+              <CustomButton link="/" buttonText="Memes" />
+              <CustomButton link="/" buttonText="Live" />
+              {/* <CustomButton link="/trades" buttonText="Traders & Leaderboard" /> */}
             </Box>
           )}
         </Container>
