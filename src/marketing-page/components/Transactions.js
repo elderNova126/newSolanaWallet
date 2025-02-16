@@ -64,7 +64,7 @@ const Transactions = () => {
       hour12: false, // 24-hour format
     };
 
-    return now.toLocaleString("en-US", options).replace(",", "");
+    return now.toLocaleString("en-US", options).replace(",", "") +" GMT+0000";
   }
   useEffect(() => {
     fetch(`${baseUrl}/latest`)

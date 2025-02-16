@@ -36,7 +36,6 @@ const Leaderboard = (count) => {
         console.error("Error fetching data:", error);
       });
   }, []);
-
   return (
     <Box
       sx={{
@@ -56,7 +55,7 @@ const Leaderboard = (count) => {
         },
       }}
     >
-      {leader.slice(0, count).map((tx, index) => (
+      {leader.slice(0, count.count).map((tx, index) => (
         <Paper
           key={tx.id}
           elevation={0}
