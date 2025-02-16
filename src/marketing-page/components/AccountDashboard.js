@@ -246,6 +246,7 @@ const AccountDashboard = () => {
         };
       }
 
+      
       const type = Buy_Sell.toLowerCase();
       const parsedToken = parseTokenAmount(Token_Amount);
       result[Token][type].Token += parsedToken.value;
