@@ -5,7 +5,7 @@ import {
   Link,
   Typography,
   Paper,
-  Chip,
+  Grid,
   Tooltip,
   useMediaQuery,
   CircularProgress,
@@ -72,7 +72,7 @@ const RealTimeTraders = () => {
       second: "2-digit",
       hour12: false, // 24-hour format
     };
-    return now.toLocaleString("en-US", options).replace(",", "")+" GMT+0100";
+    return now.toLocaleString("en-US", options).replace(",", "") + " GMT+0100";
   }
   useEffect(() => {
     setLoading(true);
@@ -147,42 +147,41 @@ const RealTimeTraders = () => {
   return (
     <Box>
       {loading ? (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          sx={{ minHeight: "100vh", width: "100%" }}
+        >
+          <CircularProgress />
+        </Box>
+      ) : (
+        <>
           <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            sx={{ minHeight: "100vh", width: "100%" }}
+            sx={{
+              display: "grid",
+              gridTemplateColumns: {
+                xs: "1fr",
+                sm: "repeat(2, minmax(250px, 1fr))",
+                md: "repeat(2, 1fr)",
+              },
+              width: "100%",
+              p: 1,
+              background: "rgb(236, 236, 236)",
+              maxHeight: "800px",
+              overflowY: "auto",
+              "&::-webkit-scrollbar": {
+                width: "8px",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "rgb(236, 236, 236)", // Adjusted for contrast
+                borderRadius: "4px",
+              },
+              "&::-webkit-scrollbar-track": {
+                background: "rgb(236, 236, 236)",
+              },
+            }}
           >
-            <CircularProgress />
-          </Box>
-        ) : (
-          <>
-      <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: {
-            xs: "1fr",
-            sm: "repeat(auto-fit, minmax(250px, 1fr))",
-            md: "repeat(3, 1fr)",
-          },
-          width: "100%",
-          p: 1,
-          background: "rgb(236, 236, 236)",
-          maxHeight: "800px",
-          overflowY: "auto",
-          "&::-webkit-scrollbar": {
-            width: "8px",
-          },
-          "&::-webkit-scrollbar-thumb": {
-            backgroundColor: "rgb(236, 236, 236)", // Adjusted for contrast
-            borderRadius: "4px",
-          },
-          "&::-webkit-scrollbar-track": {
-            background: "rgb(236, 236, 236)",
-          },
-        }}
-      >
-        
             {Object.entries(trades).map(([wallet, transactions]) => {
               const username = transactions[0]?.User_Name || "Unknown"; // Fix undefined username
               const Avatar_link = transactions[0]?.Avatar || "Unknown"; // Fix undefined username
@@ -203,10 +202,12 @@ const RealTimeTraders = () => {
                       flexDirection: "row",
                       alignItems: "center",
                       gap: { xs: 1, sm: 2 }, // Reduce gap for smaller screens
-                      pl: 1,pr: 1,pt: 1,
+                      pl: 1,
+                      pr: 1,
+                      pt: 1,
                       borderRadius: 0,
                       background: "#faf3e0",
-                      borderBottom:"dotted 1px black",
+                      borderBottom: "dotted 1px black",
                     }}
                   >
                     <Link
@@ -240,6 +241,7 @@ const RealTimeTraders = () => {
                           href={`${wallet}.html`}
                           sx={{
                             textDecoration: "none",
+                            fontSize:16,
                             color: "black",
                             fontWeight: 800,
                           }}
@@ -286,118 +288,112 @@ const RealTimeTraders = () => {
                     }}
                   >
                     {transactions.map((item, index) => (
-                      <Box
-                        key={index}
-                        elevation={2}
-                        sx={{
-                          display: "flex",
-                          flexDirection: "row",
-                          alignItems: "center",
-                          gap: { xs: 1, sm: 2 },
-                          pl: 2,
-                          pr: 2,
-                          borderRadius: 0,
-                          background: "#faf3e0",
-                        }}
-                      >
-                        <Box
-                          sx={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            width: "100%",
-                          }}
+                      <>
+                        <Grid
+                          container
+                          key={index}
+                          pl={1}
+                          pr={1}
+                          spacing={0.25}
                         >
-                          {/* Left side */}
-                          <Box sx={{ display: "flex", gap: { xs: 1, sm: 2 } }}>
-                            <Typography
-                              sx={{
-                                color: item.Buy_Sell === "Buy" ? "green" : "red", // Change color based on Buy/Sell
-                                fontSize: { xs: "12px", sm: "14px" },
-                                // width: "60px", // Set a fixed width for both 'Buy' and 'Sell'
-                                display: "inline-block", // To ensure width is respected
-                              }}
-                            >
-                              {item.Buy_Sell === "Buy" ? 'Aped':'flipped'}
-                            </Typography>
-                            {item.Buy_Sell === "Buy" && (
+                          <Grid item xs={12} sm={6} md={2}>
+                            <Box textAlign="left">
+                              <Typography
+                                sx={{
+                                  color:
+                                    item.Buy_Sell === "Buy" ? "green" : "red", // Change color based on Buy/Sell
+                                  fontSize: { xs: "12px", sm: "14px" },
+                                  display: "inline-block", // To ensure width is respected
+                                }}
+                              >
+                                {item.Buy_Sell === "Buy" ? "Aped" : "flipped"}
+                              </Typography>
+                            </Box>
+                          </Grid>
+                          <Grid item xs={12} sm={6} md={4}>
+                            <Box textAlign="left">
+                              {item.Buy_Sell === "Buy" && (
+                                <Typography
+                                  sx={{
+                                    color: "black",
+                                    fontSize: { xs: "12px", sm: "14px" },
+                                  }}
+                                >
+                                  {item.Sol_Amount} sol
+                                </Typography>
+                              )}
+                              {item.Buy_Sell === "Sell" && (
+                                <Typography
+                                  sx={{
+                                    color: "black",
+                                    fontSize: { xs: "12px", sm: "14px" },
+                                  }}
+                                >
+                                  {item.Token_Amount} <span fontWeight={'bold'}>{item.Token}</span>
+                                </Typography>
+                              )}
+                            </Box>
+                          </Grid>
+                          <Grid item xs={12} sm={6} md={5}>
+                            <Box textAlign="right">
+                              {item.Buy_Sell === "Buy" && (
+                                <Typography
+                                  sx={{
+                                    color: "black",
+                                    fontSize: { xs: "12px", sm: "14px" },
+                                  }}
+                                >
+                                  {item.Token_Amount} <span fontWeight={'bold'}>{item.Token}</span>
+                                </Typography>
+                              )}
+                              {item.Buy_Sell === "Sell" && (
+                                <Typography
+                                  sx={{
+                                    color: "black",
+                                    fontSize: { xs: "12px", sm: "14px" },
+                                  }}
+                                >
+                                  {item.Sol_Amount} sol
+                                </Typography>
+                              )}
+                            </Box>
+                          </Grid>
+                          <Grid item xs={12} sm={6} md={1}>
+                            <Box textAlign="right">
                               <Typography
                                 sx={{
                                   color: "black",
                                   fontSize: { xs: "12px", sm: "14px" },
                                 }}
                               >
-                                {item.Sol_Amount} sol
+                                <Link
+                                  href={item.Link} // URL to open in the new tab
+                                  target="_blank" // Open in a new tab
+                                  rel="noopener noreferrer" // Security best practice when using target="_blank"
+                                  sx={{
+                                    textDecoration: "none",
+                                    color: "inherit", // Keeps the text color consistent
+                                    cursor: "pointer", // Pointer cursor effect
+                                  }}
+                                >
+                                  {getTimeDifference(
+                                    getCurrentCETTime(),
+                                    item.Time
+                                  )}
+                                </Link>
                               </Typography>
-                            )}
-                            {item.Buy_Sell === "Sell" && (
-                              <Typography
-                                sx={{
-                                  color: "black",
-                                  fontSize: { xs: "12px", sm: "14px" },
-                                }}
-                              >
-                                {item.Token_Amount} {item.Token}
-                              </Typography>
-                            )}
-                          </Box>
-
-                          {/* Right side */}
-                          <Box sx={{ display: "flex", gap: { xs: 1, sm: 2 } }}>
-                            {item.Buy_Sell === "Buy" && (
-                              <Typography
-                                sx={{
-                                  color: "black",
-                                  fontSize: { xs: "12px", sm: "14px" },
-                                }}
-                              >
-                                {item.Token_Amount} {item.Token}
-                              </Typography>
-                            )}
-                            {item.Buy_Sell === "Sell" && (
-                              <Typography
-                                sx={{
-                                  color: "black",
-                                  fontSize: { xs: "12px", sm: "14px" },
-                                }}
-                              >
-                                {item.Sol_Amount} sol
-                              </Typography>
-                            )}
-
-                            <Typography
-                              sx={{
-                                color: "black",
-                                fontSize: { xs: "12px", sm: "14px" },
-                              }}
-                            >
-                              <Link
-                                href={item.Link} // URL to open in the new tab
-                                target="_blank" // Open in a new tab
-                                rel="noopener noreferrer" // Security best practice when using target="_blank"
-                                sx={{
-                                  textDecoration: "none",
-                                  color: "inherit", // Keeps the text color consistent
-                                  cursor: "pointer", // Pointer cursor effect
-                                }}
-                              >
-                                {getTimeDifference(
-                                  getCurrentCETTime(),
-                                  item.Time
-                                )}
-                              </Link>
-                            </Typography>
-                          </Box>
-                        </Box>
-                      </Box>
+                            </Box>
+                          </Grid>
+                        </Grid>
+                      </>
                     ))}
                   </Box>
                 </Paper>
               );
             })}
-          
-      </Box>
-      </>
-        )}
+          </Box>
+        </>
+      )}
     </Box>
   );
 };

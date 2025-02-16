@@ -62,7 +62,7 @@ const Leaderboard = (count) => {
           sx={{
             display: "flex",
             alignItems: "center",
-            gap: { xs: 1.5, sm: 2 },
+            gap: { xs: .5, sm: 1 },
             p: 2,
             borderRadius: 0,
             background: "#009B77",
@@ -102,7 +102,6 @@ const Leaderboard = (count) => {
               textDecoration: "none",
               display: "flex",
               color: "black",
-              alignItems: "center",
               fontWeight: 600,
             }}
           >
@@ -119,7 +118,7 @@ const Leaderboard = (count) => {
           <Box sx={{ color: "black" }}>{tx.username}</Box>
           <Box sx={{ flexGrow: 1 }}>
             <Box
-              sx={{ display: "flex", alignItems: "center", gap: 1, mb: 0.5 }}
+              sx={{ display: "flex", gap: 1, mb: 0.5 }}
             >
               <Link
                 href={`https://x.com/${tx.twitter_link.split("/")[2]}`}
@@ -144,7 +143,6 @@ const Leaderboard = (count) => {
                   color: "black",
                   textDecoration: "none",
                   display: "flex",
-                  alignItems: "center",
                   cursor: "pointer",
                 }}
                 onClick={(e) => {
@@ -165,7 +163,7 @@ const Leaderboard = (count) => {
                 copiedShortWallet ===
                   tx.wallet_address.split("/").pop().substring(0, 12)
                   ? "Copied"
-                  : tx.wallet_address.split("/").pop().substring(0, 12)}
+                  : tx.wallet_address.split("/").pop().substring(0, 6)}
               </Box>
             </Box>
           </Box>
@@ -174,7 +172,7 @@ const Leaderboard = (count) => {
             <Typography sx={{ color: "black" }}>{tx.buy}</Typography>
             <Typography sx={{ color: "black" }}>/</Typography>
             <Typography sx={{ color: "red" }}>{tx.sell}</Typography>
-            <Typography sx={{ color: "black", pl: 5, fontWeight: 800 }}>
+            <Typography sx={{ color: "black", pl: 1, fontWeight: 800 }}>
               {tx.total_profit}
             </Typography>
             <Typography sx={{ color: "black", fontWeight: 800 }}>
