@@ -108,7 +108,7 @@ export default function DashBoard() {
                   background: "#faf3e0",
                 }}
               >
-                <Typography
+                {/* <Typography
                   variant="h5"
                   sx={{
                     fontFamily: "VT323, monospace",
@@ -123,8 +123,8 @@ export default function DashBoard() {
                   }}
                 >
                   Live Transactions
-                </Typography>
-                <Transactions />
+                </Typography> */}
+                {/* <Transactions /> */}
               </Paper>
               {/* FAQs Section */}
               <Paper
@@ -190,11 +190,6 @@ export default function DashBoard() {
                   link="https://t.me/kolsOnline"
                   buttonText="Join Our Telegram"
                 />
-                <CustomButton
-                  IconComponent={ShoppingCartIcon}
-                  link="https://raydium.io/swap/"
-                  buttonText="Buy $kolsOnline"
-                />
               </Box>
               <Typography
                   variant="h5"
@@ -211,7 +206,7 @@ export default function DashBoard() {
                     pl: 3,
                   }}
                 >
-                  Leaderboard
+                  Top Kols
                 </Typography>
               <Leaderboard count={9}/>
               <Link href={`/trades`}>
