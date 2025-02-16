@@ -329,7 +329,7 @@ const RealTimeTraders = () => {
                                     fontSize: { xs: "12px", sm: "14px" },
                                   }}
                                 >
-                                  {item.Token_Amount} <span fontWeight={'bold'}>{item.Token}</span>
+                                  {item.Token_Amount} <span style={{ fontWeight: "bold" }}>{item.Token}</span>
                                 </Typography>
                               )}
                             </Box>
@@ -343,7 +343,7 @@ const RealTimeTraders = () => {
                                     fontSize: { xs: "12px", sm: "14px" },
                                   }}
                                 >
-                                  {item.Token_Amount} <span fontWeight={'bold'}>{item.Token}</span>
+                                  {item.Token_Amount} <span style={{ fontWeight: "bold" }}>{item.Token}</span>
                                 </Typography>
                               )}
                               {item.Buy_Sell === "Sell" && (
