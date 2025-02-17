@@ -100,10 +100,10 @@ export default function AppAppBar() {
 
             {/* Right Section - Price & Wallet */}
             <Box display="flex" alignItems="center" gap={2}>
-              <Typography sx={{ color: "black" }}>
+              {/* <Typography sx={{ color: "black" }}>
                 Last updated: X Seconds ago
-              </Typography>
-              <Button
+              </Typography> */}
+              <Button 
                 onClick={() => {
                   if (!solCurrentAccount) {
                     SolConnectWallet(1);
@@ -113,6 +113,7 @@ export default function AppAppBar() {
                 }}
                 variant="contained"
                 sx={{
+                  display: { xs: "none", md: "flex" },
                   textTransform: "none",
                   fontSize: "1rem",
                   border: "1px solid black !important",
@@ -158,6 +159,37 @@ export default function AppAppBar() {
               <CustomButton link="/" buttonText="Trending" />
               <CustomButton link="/" buttonText="Memes" />
               <CustomButton link="/" buttonText="Live" />
+              <Button 
+                onClick={() => {
+                  if (!solCurrentAccount) {
+                    SolConnectWallet(1);
+                  } else {
+                    navigate(`/account/${solCurrentAccount}`);
+                  }
+                }}
+                variant="contained"
+                sx={{
+                  textTransform: "none",
+                  fontSize: "1rem",
+                  border: "1px solid black !important",
+                  borderRadius: 0,
+                  transition: "all 0.5s ease-in-out",
+                  background: !solCurrentAccount
+                    ? bgColor
+                      ? "white !important"
+                      : "red !important"
+                    : "white !important",
+                  color: "black",
+                  "&:hover": {
+                    transform: "translateX(-3px) translateY(3px)",
+                    border: "1px solid #FF5733",
+                  },
+                }}
+              >
+                {solCurrentAccount
+                  ? solCurrentAccount.toString().substring(0, 6)
+                  : "Connect Wallet"}
+              </Button>
               {/* <CustomButton link="/trades" buttonText="Traders & Leaderboard" /> */}
             </Box>
           )}
