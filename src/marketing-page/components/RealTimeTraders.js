@@ -338,9 +338,14 @@ const RealTimeTraders = () => {
                                       }}
                                     >
                                       {item.Token_Amount}{" "}
-                                      <span style={{ fontWeight: "bold" }}>
-                                        {item.Token}
-                                      </span>
+                                      <Link
+                                        href={`https://photon-sol.tinyastro.io/en/lp/${username}`} // Fixed Twitter link
+                                        target="_blank"
+                                      >
+                                        <span style={{ fontWeight: "bold", color:'black'}}>
+                                          {item.Token}
+                                        </span>
+                                      </Link>
                                     </Typography>
                                   )}
                                 </Box>
@@ -354,9 +359,14 @@ const RealTimeTraders = () => {
                                       }}
                                     >
                                       {item.Token_Amount}{" "}
-                                      <span style={{ fontWeight: "bold" }}>
-                                        {item.Token}
-                                      </span>
+                                      <Link
+                                        href={`https://photon-sol.tinyastro.io/en/lp/${username}`} // Fixed Twitter link
+                                        target="_blank"
+                                      >
+                                        <span style={{ fontWeight: "bold", color:'black'}}>
+                                          {item.Token}
+                                        </span>
+                                      </Link>
                                     </Typography>
                                   )}
                                   {item.Buy_Sell === "Sell" && (

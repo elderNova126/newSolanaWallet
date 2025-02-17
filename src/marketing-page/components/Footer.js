@@ -26,8 +26,8 @@ function Footer() {
         sx={{
           display: "flex",
           alignItems: "center", // Vertically align items in the center
-          alignContent:"center",
-          justifyContent:"center",
+          alignContent: "center",
+          justifyContent: "center",
         }}
       >
         <Box
@@ -43,16 +43,20 @@ function Footer() {
           sx={{
             fontSize: "4rem",
             fontWeight: 800,
-            color: "rgb(241, 238, 238) 0% !important",
+            color: "#ffffff",
             marginLeft: "10px", // Add some spacing between the image and the text
           }}
         >
           ${solPrice}
         </Typography>
       </Box>
-      <Typography sx={{          
-            color: "rgb(241, 238, 238) 0% !important",           
-          }}>© 2025 KOLs Online – All rights reserved.</Typography>
+      <Typography
+        sx={{
+          color: "#ffffff",
+        }}
+      >
+        © 2025 KOLs Online – All rights reserved.
+      </Typography>
     </Box>
   );
 }

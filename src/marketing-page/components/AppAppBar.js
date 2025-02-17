@@ -6,6 +6,7 @@ import {
   Button,
   AppBar,
   Container,
+  Avatar,
   Modal,
   IconButton,
 } from "@mui/material";
@@ -16,6 +17,7 @@ import SearchBar from "./SearchBar";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "./CustomButton";
 import "react-toastify/dist/ReactToastify.css";
+import logo from "./KOLsOnline.png";
 
 const slideDown = keyframes`
   from {
@@ -77,7 +79,8 @@ export default function AppAppBar() {
             sx={{ background: "#faf3e0 !important" }}
           >
             {/* Left Section - Logo */}
-            <Box display="flex" alignItems="center">
+            <Box display="flex" alignItems="center" gap={2}>
+              <img src={logo} style={{width:'30px',height:'30px'}} alt="KOLs Online Logo" />
               <LogoTypography onClick={() => navigate("/about")}>
                 KOLs Online
               </LogoTypography>

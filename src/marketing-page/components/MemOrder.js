@@ -20,27 +20,31 @@ const MemOrder = () => {
   // Fetch meme tokens from an API
   useEffect(() => {
     // debugger;
-    console.log("dsdsadsadsadsadasd", trades);
     if (trades) {
-       
       let new_array = {};
 
       Object.values(trades)
         .flat()
         .forEach((item) => {
-          debugger;
+          // Add a wallet field (assuming `item.Wallet` contains the wallet info)
           if (getTimeDiffInMinutes(item.Time) < 10) {
-            
-            new_array[item.Token] =
-              (new_array[item.Token] || 0) + parseFloat(item.Sol_Amount);
+            if (!new_array[item.Token]) {
+              new_array[item.Token] = {
+                totalAmount: 0,
+                wallet: item.Wallet, // Assuming 'item.Wallet' is the wallet you want to associate
+              };
+            }
+
+            new_array[item.Token].totalAmount += parseFloat(item.Sol_Amount);
           }
         });
 
       const sortedData = Object.fromEntries(
         Object.entries(new_array)
-          .filter(([key, value]) => value !== null) // Remove null values
-          .sort((a, b) => b[1] - a[1]) // Sort descending
+          .filter(([key, value]) => value.totalAmount !== null) // Remove null values
+          .sort((a, b) => b[1].totalAmount - a[1].totalAmount) // Sort descending by totalAmount
       );
+
       setMemes(sortedData);
     }
     if (window.location.hash === "#Memes") {
@@ -57,16 +61,22 @@ const MemOrder = () => {
           padding={3}
         >
           {Object.entries(memes).map(([key, value], index) => (
-            <Box key={key} display="flex" justifyContent="center" padding={1}>
-              <Typography
-                sx={{
-                  fontSize: { xs: "12px", sm: "14px" },
-                  display: "inline-block",
-                  color: "black",
-                }}
+            <Box key={key} display="flex" justifyContent="center" padding={0.5}>
+              <Link
+                href={`https://photon-sol.tinyastro.io/en/lp/${value.Wallet}`} // Fixed Twitter link
+                target="_blank"
               >
-                {key} : {value.toFixed(2)} Sol
-              </Typography>
+                <Typography
+                  sx={{
+                    fontSize: { xs: "12px", sm: "14px" },
+                    display: "inline-block",
+                    color: "black",
+                    fontWeight:"bold",
+                  }}
+                >
+                  {key} : {value.totalAmount.toFixed(2)} Sol
+                </Typography>
+              </Link>
             </Box>
           ))}
         </Box>
