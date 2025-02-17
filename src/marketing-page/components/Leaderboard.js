@@ -35,23 +35,26 @@ const Leaderboard = (count) => {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
+    if (window.location.hash === "#TopKol") {
+      document.getElementById("TopKol").scrollIntoView({ behavior: "smooth" });
+    }
   }, []);
   return (
     <Box
       sx={{
         width: "100%",
-        maxHeight: "800px", // Set a fixed height for the container
+        maxHeight: window.screen.height - 350, // Set a fixed height for the container
         overflowY: "auto", // Enable vertical scrolling when content exceeds the height
         overflowX: "hidden",
         background: "#009B77",
         "&::-webkit-scrollbar": {
-          width: "4px", // Adjust width of the scrollbar
+          width: "8px", // Adjust width of the scrollbar
         },
         "&::-webkit-scrollbar-thumb": {
-          backgroundColor: "#009B77", // Scrollbar thumb color
+          backgroundColor: "rgb(3, 83, 65)", // Scrollbar thumb color
         },
         "&::-webkit-scrollbar-track": {
-          background: "#009B77", // Background color of the scrollbar track
+          background: " #009B77", // Background color of the scrollbar track
         },
       }}
     >
@@ -61,13 +64,13 @@ const Leaderboard = (count) => {
           elevation={0}
           sx={{
             display: "flex",
+            flexDirection: { xs: "column", sm: "row" }, // Adjust layout for smaller screens
             alignItems: "center",
-            gap: { xs: .5, sm: 1 },
+            gap: { xs: 1, sm: 2 },
             p: 2,
             borderRadius: 0,
             background: "#009B77",
             borderBottom: "1px solid #000000",
-            // borderTop: "2px solid #000000",
           }}
         >
           <Box
@@ -77,6 +80,7 @@ const Leaderboard = (count) => {
               justifyContent: "center", // Centers content horizontally
               height: "100%", // Ensures Box takes full height for vertical
               width: 30,
+              mb: { xs: 1, sm: 0 }, // Margin for small screens
             }}
           >
             {index === 0 ? (
@@ -103,6 +107,9 @@ const Leaderboard = (count) => {
               display: "flex",
               color: "black",
               fontWeight: 600,
+              flexDirection: { xs: "column", sm: "row" }, // Vertical on small screens, horizontal on larger screens
+              alignItems: "center",
+              gap: 1, // Increased gap for horizontal layout
             }}
           >
             <Avatar
@@ -114,12 +121,13 @@ const Leaderboard = (count) => {
                 height: 40,
               }}
             />
+            <Box sx={{ color: "black", textAlign: "center" }}>
+              {tx.username}
+            </Box>
           </Link>
-          <Box sx={{ color: "black" }}>{tx.username}</Box>
+
           <Box sx={{ flexGrow: 1 }}>
-            <Box
-              sx={{ display: "flex", gap: 1, mb: 0.5 }}
-            >
+            <Box sx={{ display: "flex", gap: 1, mb: 0.5 }}>
               <Link
                 href={`https://x.com/${tx.twitter_link.split("/")[2]}`}
                 sx={{
@@ -146,7 +154,7 @@ const Leaderboard = (count) => {
                   cursor: "pointer",
                 }}
                 onClick={(e) => {
-                  e.preventDefault(); // Prevent the default link action
+                  e.preventDefault();
                   navigator.clipboard.writeText(
                     tx.wallet_address.split("/").pop()
                   );
@@ -163,12 +171,18 @@ const Leaderboard = (count) => {
                 copiedShortWallet ===
                   tx.wallet_address.split("/").pop().substring(0, 12)
                   ? "Copied"
-                  : tx.wallet_address.split("/").pop().substring(0, 6)}
+                  : tx.wallet_address.split("/").pop().substring(0, 12)}
               </Box>
             </Box>
           </Box>
 
-          <Box style={{ display: "flex", alignItems: "center" }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: { xs: "column", sm: "row" },
+              alignItems: "center",
+            }}
+          >
             <Typography sx={{ color: "black" }}>{tx.buy}</Typography>
             <Typography sx={{ color: "black" }}>/</Typography>
             <Typography sx={{ color: "red" }}>{tx.sell}</Typography>
@@ -180,7 +194,7 @@ const Leaderboard = (count) => {
             </Typography>
           </Box>
         </Paper>
-      ))}      
+      ))}
     </Box>
   );
 };

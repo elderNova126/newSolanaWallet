@@ -1,4 +1,4 @@
-import React, { useEffect, useState, createContext } from "react";
+import React, { useEffect, useState, createContext, useRef } from "react";
 import { Connection, PublicKey, Transaction } from "@solana/web3.js";
 import { Buffer } from "buffer";
 
@@ -11,11 +11,27 @@ export const CryptoTrans = createContext();
 export const CryptoProvider = ({ children }) => {
   const [solCurrentAccount, setSolCurrentAccount] = useState(null);
   const [phantonConnect, setPhantonConnect] = useState(null);
-
+  const [trades, setTrades] = useState({});
+  // const TopKol = useRef(null);
+  // const Trending = useRef(null);
+  // const Memes = useRef(null);
+  // const Live = useRef(null);
+  // const scrollToTopKol = () => {
+  //   TopKol.current?.scrollIntoView({ behavior: "smooth" }); // Scroll smoothly
+  // };
+  // const scrollToTrending = () => {
+  //   Trending.current?.scrollIntoView({ behavior: "smooth" }); // Scroll smoothly
+  // };
+  // const scrollToMemes = () => {
+  //   Memes.current?.scrollIntoView({ behavior: "smooth" }); // Scroll smoothly
+  // };
+  // const scrollToLive = () => {
+  //   Live.current?.scrollIntoView({ behavior: "smooth" }); // Scroll smoothly
+  // };
   ////////////////////////////////////////////////////////// connect Solana wallet ///////////////////////////////////////////////////////////////
   const SolConnectWallet = async (cate) => {
     if (!window.solana || !window.solana.isPhantom) {
-      if(cate===1) alert("Please install Phantom Wallet!");
+      if (cate === 1) alert("Please install Phantom Wallet!");
       return;
     }
     try {
@@ -33,26 +49,6 @@ export const CryptoProvider = ({ children }) => {
     }
   };
 
-  ////////////////////////////////////////////////////////////////getSolTransaction//////////////////////////////////////////
-  const getSolTransaction = async (connection, address) => {
-    const signatures = await connection.getSignaturesForAddress(
-      address, { limit: 10 } // Limit can be adjusted
-    );
-    console.log('signatures',signatures)
-    // Fetch detailed transaction info for each signature
-    const transactions = await Promise.all(
-      signatures.map(async ({ signature, }) => {
-        const txDetails = await connection.getTransaction(signature,{
-          maxSupportedTransactionVersion: 0, // Explicitly set this
-        });
-        console.log("Fetched transaction details:", txDetails);
-        return txDetails;
-      })
-    );
-    const validTransactions = transactions.filter((tx) => tx !== null);
-    
-    return validTransactions;
-  };
   useEffect(() => {
     SolConnectWallet();
   }, []);
@@ -61,8 +57,17 @@ export const CryptoProvider = ({ children }) => {
       value={{
         SolConnectWallet,
         solCurrentAccount,
-        getSolTransaction,
         phantonConnect,
+        // scrollToTopKol,
+        // scrollToTrending,
+        // scrollToMemes,
+        // scrollToLive,
+        // TopKol,
+        // Trending,
+        // Memes,
+        // Live,
+        trades,
+        setTrades,
       }}
     >
       {children}

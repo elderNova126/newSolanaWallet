@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import { Box, Link, Typography, Grid } from "@mui/material";
 const MemeTokens = () => {
   const [tokens, setTokens] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -32,25 +32,56 @@ const MemeTokens = () => {
     };
 
     fetchTokens();
+
+    if (window.location.hash === "#Trending") {
+      document
+        .getElementById("Trending")
+        .scrollIntoView({ behavior: "smooth" });
+    }
   }, []);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
   return (
-    <div>
-      <h1>Trending Meme Tokens on Solana</h1>
-      <ul>
-        {tokens.map((token) => (
-          <li key={token.id}>
-            <h2>{token.name} ({token.symbol.toUpperCase()})</h2>
-            <p>Price: ${token.current_price.toFixed(2)}</p>
-            <p>Market Cap: ${token.market_cap.toLocaleString()}</p>
-            <p>24h Volume: ${token.total_volume.toLocaleString()}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      {tokens.map((token, index) => (
+        <Grid container key={index} pl={1} pr={1} spacing={0.25}>
+          <Grid item xs={12} sm={6} md={3}>
+            <Box textAlign="left">
+              <Typography
+                sx={{
+                  fontSize: { xs: "12px", sm: "14px", md: "16px" }, // Scaling font size
+                  display: "inline-block", // To ensure width is respected
+                  fontWeight: "bold",
+                  color: "black",
+                }}
+              >
+                {token.name} ({token.symbol.toUpperCase()})
+              </Typography>
+            </Box>
+          </Grid>
+
+          <Grid item xs={12} sm={6} md={2}>
+            <Box textAlign="left" color="black">
+              Price: ${token.current_price.toFixed(2)}
+            </Box>
+          </Grid>
+
+          <Grid item xs={12} sm={6} md={4}>
+            <Box textAlign="left" color="black">
+              Market Cap: ${token.market_cap.toLocaleString()}
+            </Box>
+          </Grid>
+
+          <Grid item xs={12} sm={6} md={3}>
+            <Box textAlign="left" color="black">
+              24h Volume: ${token.total_volume.toLocaleString()}
+            </Box>
+          </Grid>
+        </Grid>
+      ))}
+    </>
   );
 };
 

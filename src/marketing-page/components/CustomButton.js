@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Box } from "@mui/material";
 
-const CustomButton = ({ IconComponent , link, width="100%", buttonText = "Follow on Twitter", color = "white" }) => {
+const CustomButton = ({ IconComponent , link, width="100%", buttonText = "Follow on Twitter", color = "white",cate=true }) => {
   return (
     <Box
       sx={{

@@ -21,8 +21,7 @@ export default function MarketingPage(props) {
           <Routes>
             <Route path="/" element={<Navigate to="/about" />} />
             <Route exact path="/about" element={<DashBoard />} />
-            <Route path="/trades" element={<Trade />} />
-            <Route path="/topKols" element={<Trade />} />
+            <Route path="/details" element={<Trade />} />
             <Route path="/account/:id" element={<AccountDetail />} />
           </Routes>
         </BrowserRouter>

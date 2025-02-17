@@ -437,11 +437,11 @@ const AccountDashboard = () => {
                     width: "100%",
                     p: 1,
                     background: "#faf3e0",
-                    maxHeight: "800px",
+                    maxHeight: window.screen.height-100,
                     overflowY: "auto",
                     overflowX: "hidden",
                     "&::-webkit-scrollbar": {
-                      width: "4px",
+                      width: "8px",
                     },
                     "&::-webkit-scrollbar-thumb": {
                       backgroundColor: "rgb(200, 160, 60)",
