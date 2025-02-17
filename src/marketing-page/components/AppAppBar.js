@@ -80,7 +80,11 @@ export default function AppAppBar() {
           >
             {/* Left Section - Logo */}
             <Box display="flex" alignItems="center" gap={2}>
-              <img src={logo} style={{width:'30px',height:'30px'}} alt="KOLs Online Logo" />
+              <img
+                src={logo}
+                style={{ width: "30px", height: "30px" }}
+                alt="KOLs Online Logo"
+              />
               <LogoTypography onClick={() => navigate("/about")}>
                 KOLs Online
               </LogoTypography>
@@ -103,7 +107,7 @@ export default function AppAppBar() {
               {/* <Typography sx={{ color: "black" }}>
                 Last updated: X Seconds ago
               </Typography> */}
-              <Button 
+              <Button
                 onClick={() => {
                   if (!solCurrentAccount) {
                     SolConnectWallet(1);
@@ -155,11 +159,11 @@ export default function AppAppBar() {
               gap={2}
               sx={{ py: 2, background: "#faf3e0" }}
             >
-              <CustomButton link="/" buttonText="Top Kols" />
-              <CustomButton link="/" buttonText="Trending" />
-              <CustomButton link="/" buttonText="Memes" />
-              <CustomButton link="/" buttonText="Live" />
-              <Button 
+              <CustomButton link="/details#TopKol" buttonText="Top Kols" />
+              <CustomButton link="/details#Trending" buttonText="Memes" />
+              <CustomButton link="/details#Memes" buttonText="Trending" />
+              <CustomButton link="/details#Live" buttonText="Live" />
+              <Button
                 onClick={() => {
                   if (!solCurrentAccount) {
                     SolConnectWallet(1);
