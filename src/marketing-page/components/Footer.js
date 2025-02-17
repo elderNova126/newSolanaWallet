@@ -43,14 +43,16 @@ function Footer() {
           sx={{
             fontSize: "4rem",
             fontWeight: 800,
-            color: "rgb(241, 238, 238) 0%",
+            color: "rgb(241, 238, 238) 0% !important",
             marginLeft: "10px", // Add some spacing between the image and the text
           }}
         >
           ${solPrice}
         </Typography>
       </Box>
-      <Typography>© 2025 KOLs Online – All rights reserved.</Typography>
+      <Typography sx={{          
+            color: "rgb(241, 238, 238) 0% !important",           
+          }}>© 2025 KOLs Online – All rights reserved.</Typography>
     </Box>
   );
 }

@@ -22,13 +22,15 @@ const MemOrder = () => {
     // debugger;
     console.log("dsdsadsadsadsadasd", trades);
     if (trades) {
-      debugger;
+       
       let new_array = {};
 
       Object.values(trades)
         .flat()
         .forEach((item) => {
+          debugger;
           if (getTimeDiffInMinutes(item.Time) < 10) {
+            
             new_array[item.Token] =
               (new_array[item.Token] || 0) + parseFloat(item.Sol_Amount);
           }

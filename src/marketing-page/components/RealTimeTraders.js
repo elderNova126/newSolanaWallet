@@ -144,7 +144,7 @@ const RealTimeTraders = () => {
 
     return () => clearInterval(interval); // Cleanup on unmount
   }, []); // Run once on mount
-  
+
   return (
     <Box>
       {loading ? (
@@ -162,9 +162,10 @@ const RealTimeTraders = () => {
             sx={{
               display: "grid",
               gridTemplateColumns: {
-                xs: "1fr",
-                sm: "repeat(auto-fit, minmax(250px, 1fr))",
-                md: "repeat(3, 1fr)",
+                xs: "1fr", // Single column on extra-small screens
+                sm: "repeat(1fr)", // Two flexible columns on small screens
+                md: "repeat(2, 1fr)", // Two equal columns on medium screens
+                lg: "repeat(3, 1fr)", // Three equal columns on large screens
               },
               width: "100%",
               p: 1,
@@ -194,7 +195,7 @@ const RealTimeTraders = () => {
                     sx={{
                       border: "1px solid black",
                       background: "#faf3e0",
-                      minWidth: "250px", // Prevent items from shrinking too much
+                      // minWidth: "250px", // Prevent items from shrinking too much
                     }}
                   >
                     <Box
@@ -298,17 +299,12 @@ const RealTimeTraders = () => {
                             pr={1}
                             spacing={0.25}
                           >
-                            <Grid item xs={12} sm={6} md={2}>
+                            <Grid item xs={2} sm={2} md={2}>
                               <Box textAlign="left">
                                 <Typography
                                   sx={{
                                     color:
-                                      item.Buy_Sell === "Buy" ? "green" : "red", // Change color based on Buy/Sell
-                                    fontSize: {
-                                      xs: "12px",
-                                      sm: "14px",
-                                      md: "16px",
-                                    }, // Adjust font size based on screen size
+                                      item.Buy_Sell === "Buy" ? "green" : "red", // Change color based on Buy/Sell // Adjust font size based on screen size
                                     display: "inline-block", // Ensure width is respected
                                   }}
                                 >
@@ -317,88 +313,70 @@ const RealTimeTraders = () => {
                               </Box>
                             </Grid>
 
-                            <Grid item xs={12} sm={6} md={4}>
-                              <Box textAlign="left">
-                                {item.Buy_Sell === "Buy" && (
-                                  <Typography
-                                    sx={{
-                                      color: "black",
-                                      fontSize: {
-                                        xs: "12px",
-                                        sm: "14px",
-                                        md: "16px",
-                                      }, // Adjust font size based on screen size
-                                    }}
-                                  >
-                                    {item.Sol_Amount} sol
-                                  </Typography>
-                                )}
-                                {item.Buy_Sell === "Sell" && (
-                                  <Typography
-                                    sx={{
-                                      color: "black",
-                                      fontSize: {
-                                        xs: "12px",
-                                        sm: "14px",
-                                        md: "16px",
-                                      },
-                                    }}
-                                  >
-                                    {item.Token_Amount}{" "}
-                                    <span style={{ fontWeight: "bold" }}>
-                                      {item.Token}
-                                    </span>
-                                  </Typography>
-                                )}
+                            <Grid item xs={9} sm={9} md={9}>
+                              <Box
+                                display="flex"
+                                justifyContent="space-between"
+                                alignItems="center"
+                                flexWrap="wrap" // Ensures it wraps on smaller screens
+                              >
+                                {/* Left Section */}
+                                <Box textAlign="left">
+                                  {item.Buy_Sell === "Buy" && (
+                                    <Typography
+                                      sx={{
+                                        color: "black",
+                                      }}
+                                    >
+                                      {item.Sol_Amount} sol
+                                    </Typography>
+                                  )}
+                                  {item.Buy_Sell === "Sell" && (
+                                    <Typography
+                                      sx={{
+                                        color: "black",
+                                      }}
+                                    >
+                                      {item.Token_Amount}{" "}
+                                      <span style={{ fontWeight: "bold" }}>
+                                        {item.Token}
+                                      </span>
+                                    </Typography>
+                                  )}
+                                </Box>
+
+                                {/* Right Section */}
+                                <Box textAlign="right">
+                                  {item.Buy_Sell === "Buy" && (
+                                    <Typography
+                                      sx={{
+                                        color: "black",
+                                      }}
+                                    >
+                                      {item.Token_Amount}{" "}
+                                      <span style={{ fontWeight: "bold" }}>
+                                        {item.Token}
+                                      </span>
+                                    </Typography>
+                                  )}
+                                  {item.Buy_Sell === "Sell" && (
+                                    <Typography
+                                      sx={{
+                                        color: "black",
+                                      }}
+                                    >
+                                      {item.Sol_Amount} sol
+                                    </Typography>
+                                  )}
+                                </Box>
                               </Box>
                             </Grid>
 
-                            <Grid item xs={12} sm={6} md={5}>
-                              <Box textAlign="right">
-                                {item.Buy_Sell === "Buy" && (
-                                  <Typography
-                                    sx={{
-                                      color: "black",
-                                      fontSize: {
-                                        xs: "12px",
-                                        sm: "14px",
-                                        md: "16px",
-                                      },
-                                    }}
-                                  >
-                                    {item.Token_Amount}{" "}
-                                    <span style={{ fontWeight: "bold" }}>
-                                      {item.Token}
-                                    </span>
-                                  </Typography>
-                                )}
-                                {item.Buy_Sell === "Sell" && (
-                                  <Typography
-                                    sx={{
-                                      color: "black",
-                                      fontSize: {
-                                        xs: "12px",
-                                        sm: "14px",
-                                        md: "16px",
-                                      },
-                                    }}
-                                  >
-                                    {item.Sol_Amount} sol
-                                  </Typography>
-                                )}
-                              </Box>
-                            </Grid>
-
-                            <Grid item xs={12} sm={6} md={1}>
+                            <Grid item xs={1} sm={1} md={1}>
                               <Box textAlign="right">
                                 <Typography
                                   sx={{
                                     color: "black",
-                                    fontSize: {
-                                      xs: "12px",
-                                      sm: "14px",
-                                      md: "16px",
-                                    },
                                   }}
                                 >
                                   <Link
