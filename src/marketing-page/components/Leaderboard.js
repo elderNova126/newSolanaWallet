@@ -39,6 +39,7 @@ const Leaderboard = (count) => {
       document.getElementById("TopKol").scrollIntoView({ behavior: "smooth" });
     }
   }, []);
+  // console.log("dddddddddddddddddddddddd",leader)
   return (
     <Box
       sx={{
@@ -129,7 +130,7 @@ const Leaderboard = (count) => {
           <Box sx={{ flexGrow: 1 }}>
             <Box sx={{ display: "flex", gap: 1, mb: 0.5 }}>
               <Link
-                href={`https://x.com/${tx.twitter_link.split("/")[2]}`}
+                href={tx.twitter_link}
                 sx={{
                   textDecoration: "none",
                   display: "flex",
