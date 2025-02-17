@@ -12,12 +12,13 @@ import {
   Avatar,
   Tooltip,
   CircularProgress,
+  Link,
 } from "@mui/material";
 import { alpha, useTheme } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import { CryptoTrans } from "../TransFunc/CryptoTrans";
 import { PublicKey } from "@solana/web3.js";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 
 const AccountDashboard = () => {
@@ -86,7 +87,7 @@ const AccountDashboard = () => {
       hour12: false, // 24-hour format
     };
 
-    return now.toLocaleString("en-US", options).replace(",", "");
+    return now.toLocaleString("en-US", options).replace(",", "") + " GMT+0100";
   }
   function parseTokenAmount(amount) {
     const multipliers = { k: 1e-3, m: 1, b: 1e3 };
@@ -162,6 +163,18 @@ const AccountDashboard = () => {
     const buy = tokenPnl[token]?.buy?.Sol || 0; // Safely get buy.Sol, default to 0 if undefined
     TempTotal_Profit += sell - buy; // Add the profit (sell - buy) to TempTotal_Profit
   });
+  const calculateTotalUsdValue = (data) => {
+    return data.reduce((sum, item) => {
+      // Clean the value by removing the dollar sign, commas, and parse the number
+      const value = parseFloat(item.Usd_Value.replace(/[^\d.-]/g, ''));
+      return sum + value;
+    }, 0);
+  };
+  
+  // Format the number with commas and add '$' symbol
+  const formatCurrency = (number) => {
+    return number.toLocaleString('en-US') + '$';
+  };
 
   console.log("holding: ", holding);
   console.log("defi trades: ", transformTransactions(defi_trades));
@@ -225,7 +238,7 @@ const AccountDashboard = () => {
                       </Typography>
 
                       <Typography variant="h6" fontWeight="700" color="black">
-                        $720,544.7
+                        {formatCurrency(calculateTotalUsdValue(holding.slice(1)))}
                       </Typography>
                     </Stack>
                     <Stack
@@ -248,7 +261,7 @@ const AccountDashboard = () => {
                         },
                       }}
                     >
-                      {holding.map((holding, index) => (
+                      {holding.slice(1).map((holding, index) => (
                         <Box
                           key={index}
                           sx={{
@@ -381,6 +394,7 @@ const AccountDashboard = () => {
                             color: "black",
                             fontWeight: 600,
                           }}
+                          target="_blank"
                         >
                           {getTimeDifference(getCurrentCETTime(), trade.Time)}
                         </Link>
@@ -437,7 +451,7 @@ const AccountDashboard = () => {
                     width: "100%",
                     p: 1,
                     background: "#faf3e0",
-                    maxHeight: window.screen.height-100,
+                    maxHeight: window.screen.height - 100,
                     overflowY: "auto",
                     overflowX: "hidden",
                     "&::-webkit-scrollbar": {
@@ -521,7 +535,7 @@ const AccountDashboard = () => {
                           sx={{ display: "flex", alignItems: "center", gap: 1 }}
                         >
                           <Typography variant="h6" color="green">
-                          aped
+                            aped
                           </Typography>
                           <Typography variant="h6" color="black">
                             {transactions.buy.Sol.toFixed(2)}

@@ -26,7 +26,6 @@ const MemOrder = () => {
       Object.values(trades)
         .flat()
         .forEach((item) => {
-          // Add a wallet field (assuming `item.Wallet` contains the wallet info)
           if (getTimeDiffInMinutes(item.Time) < 10) {
             if (!new_array[item.Token]) {
               new_array[item.Token] = {
