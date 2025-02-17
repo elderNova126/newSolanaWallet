@@ -6,6 +6,7 @@ import {
   Button,
   AppBar,
   Container,
+  Avatar,
   Modal,
   IconButton,
 } from "@mui/material";
@@ -16,6 +17,7 @@ import SearchBar from "./SearchBar";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "./CustomButton";
 import "react-toastify/dist/ReactToastify.css";
+import logo from "./KOLsOnline.png";
 
 const slideDown = keyframes`
   from {
@@ -77,7 +79,8 @@ export default function AppAppBar() {
             sx={{ background: "#faf3e0 !important" }}
           >
             {/* Left Section - Logo */}
-            <Box display="flex" alignItems="center">
+            <Box display="flex" alignItems="center" gap={2}>
+              <img src={logo} style={{width:'30px',height:'30px'}} alt="KOLs Online Logo" />
               <LogoTypography onClick={() => navigate("/about")}>
                 KOLs Online
               </LogoTypography>
@@ -97,10 +100,10 @@ export default function AppAppBar() {
 
             {/* Right Section - Price & Wallet */}
             <Box display="flex" alignItems="center" gap={2}>
-              <Typography sx={{ color: "black" }}>
+              {/* <Typography sx={{ color: "black" }}>
                 Last updated: X Seconds ago
-              </Typography>
-              <Button
+              </Typography> */}
+              <Button 
                 onClick={() => {
                   if (!solCurrentAccount) {
                     SolConnectWallet(1);
@@ -110,6 +113,7 @@ export default function AppAppBar() {
                 }}
                 variant="contained"
                 sx={{
+                  display: { xs: "none", md: "flex" },
                   textTransform: "none",
                   fontSize: "1rem",
                   border: "1px solid black !important",
@@ -155,6 +159,37 @@ export default function AppAppBar() {
               <CustomButton link="/" buttonText="Trending" />
               <CustomButton link="/" buttonText="Memes" />
               <CustomButton link="/" buttonText="Live" />
+              <Button 
+                onClick={() => {
+                  if (!solCurrentAccount) {
+                    SolConnectWallet(1);
+                  } else {
+                    navigate(`/account/${solCurrentAccount}`);
+                  }
+                }}
+                variant="contained"
+                sx={{
+                  textTransform: "none",
+                  fontSize: "1rem",
+                  border: "1px solid black !important",
+                  borderRadius: 0,
+                  transition: "all 0.5s ease-in-out",
+                  background: !solCurrentAccount
+                    ? bgColor
+                      ? "white !important"
+                      : "red !important"
+                    : "white !important",
+                  color: "black",
+                  "&:hover": {
+                    transform: "translateX(-3px) translateY(3px)",
+                    border: "1px solid #FF5733",
+                  },
+                }}
+              >
+                {solCurrentAccount
+                  ? solCurrentAccount.toString().substring(0, 6)
+                  : "Connect Wallet"}
+              </Button>
               {/* <CustomButton link="/trades" buttonText="Traders & Leaderboard" /> */}
             </Box>
           )}
