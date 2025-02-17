@@ -20,7 +20,6 @@ const MemOrder = () => {
   // Fetch meme tokens from an API
   useEffect(() => {
     // debugger;
-    console.log("dsdsadsadsadsadasd", trades);
     if (trades) {
        
       let new_array = {};
@@ -28,7 +27,6 @@ const MemOrder = () => {
       Object.values(trades)
         .flat()
         .forEach((item) => {
-          debugger;
           if (getTimeDiffInMinutes(item.Time) < 10) {
             
             new_array[item.Token] =
