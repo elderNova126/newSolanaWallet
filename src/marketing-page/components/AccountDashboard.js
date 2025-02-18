@@ -3,26 +3,18 @@ import {
   Box,
   Typography,
   Paper,
-  TextField,
-  Select,
-  MenuItem,
   Container,
   Stack,
   Grid,
   Avatar,
-  Tooltip,
+  useMediaQuery,
   CircularProgress,
   Link,
 } from "@mui/material";
-import { alpha, useTheme } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
-import { CryptoTrans } from "../TransFunc/CryptoTrans";
-import { PublicKey } from "@solana/web3.js";
 import { useParams } from "react-router-dom";
 
-
 const AccountDashboard = () => {
-
   const params = useParams();
   const id = params.id;
   const [holding, setHolding] = useState([]);
@@ -31,9 +23,6 @@ const AccountDashboard = () => {
   const [selectedValue, setSelectedValue] = useState("recent");
   const baseUrl = process.env.REACT_APP_BASE_URL;
 
-  // const [mergedDataSell, setMergedDataSell] = useState([]);
-  // const [mergedDataBuy, setMergedDataBuy] = useState([]);
-  const [allSol, setAllSol] = useState([]);
   const [loading, setLoading] = useState(true);
   const handleChange = (event) => {
     const value = event.target.value;
@@ -118,7 +107,6 @@ const AccountDashboard = () => {
         };
       }
 
-
       const type = Buy_Sell.toLowerCase();
       const parsedToken = parseTokenAmount(Token_Amount);
       result[Token][type].Token += parsedToken.value;
@@ -166,14 +154,14 @@ const AccountDashboard = () => {
   const calculateTotalUsdValue = (data) => {
     return data.reduce((sum, item) => {
       // Clean the value by removing the dollar sign, commas, and parse the number
-      const value = parseFloat(item.Usd_Value.replace(/[^\d.-]/g, ''));
+      const value = parseFloat(item.Usd_Value.replace(/[^\d.-]/g, ""));
       return sum + value;
     }, 0);
   };
-  
+
   // Format the number with commas and add '$' symbol
   const formatCurrency = (number) => {
-    return number.toLocaleString('en-US') + '$';
+    return number.toLocaleString("en-US") + "$";
   };
 
   console.log("holding: ", holding);
@@ -198,7 +186,9 @@ const AccountDashboard = () => {
       {children}
     </Paper>
   );
+  const isMobile = useMediaQuery("(max-width:600px)"); // Detects mobile screens
 
+  // console.log("fffffffffffffffffffffff", tokenPnl);
   return (
     <Box
       sx={{
@@ -221,43 +211,58 @@ const AccountDashboard = () => {
         <>
           <Container maxWidth="xl">
             {/* Main Content Grid */}
-            <Grid container>
-              {/* Left Column */}
-              <Grid item xs={12} md={4}>
-                <Stack sx={{ m: 1 }}>
-                  {/* Top Holdings */}
-                  <GlassCard>
+            <Grid container alignItems="stretch">
+              {/* Left Column - Top Holdings */}
+              <Grid item xs={12} sm={6} md={4} sx={{ display: "flex" }}>
+                <Stack sx={{ m: 1, width: "100%", flex: 1 }}>
+                  <GlassCard
+                    sx={{
+                      height: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
+                  >
                     <Stack
                       direction="row"
                       alignItems="center"
                       justifyContent="space-between"
                       mb={1}
                     >
-                      <Typography variant="h6" fontWeight="700" color="black">
+                      <Typography
+                        variant={isMobile ? "body1" : "h6"}
+                        fontWeight="700"
+                        color="black"
+                      >
                         Top Holdings
                       </Typography>
-
-                      <Typography variant="h6" fontWeight="700" color="black">
-                        {formatCurrency(calculateTotalUsdValue(holding.slice(1)))}
+                      <Typography
+                        variant={isMobile ? "body1" : "h6"}
+                        fontWeight="700"
+                        color="black"
+                      >
+                        {formatCurrency(
+                          calculateTotalUsdValue(holding.slice(1))
+                        )}
                       </Typography>
                     </Stack>
+
+                    {/* Scrollable Content */}
                     <Stack
-                      minHeight={150}
+                      flex={1} // Ensures stack takes available space
+                      minHeight={isMobile ? 120 : 150}
                       sx={{
-                        maxHeight: 150, // Adjust as needed
+                        maxHeight: isMobile ? 120 : 150,
                         overflowY: "auto",
-                        overflowX: "hidden", // Prevents horizontal scrolling
-                        scrollbarWidth: "thin", // For Firefox
+                        overflowX: "hidden",
                         backgroundColor: "#faf3e0",
-                        "&::-webkit-scrollbar": {
-                          width: "3px", // Adjust scrollbar width
-                        },
+                        scrollbarWidth: "thin",
+                        "&::-webkit-scrollbar": { width: "3px" },
                         "&::-webkit-scrollbar-thumb": {
-                          backgroundColor: "#faf3e0", // Scrollbar color
+                          backgroundColor: "#d9c7a3",
                           borderRadius: "10px",
                         },
                         "&::-webkit-scrollbar-thumb:hover": {
-                          backgroundColor: "#faf3e0",
+                          backgroundColor: "#cbb997",
                         },
                       }}
                     >
@@ -267,32 +272,35 @@ const AccountDashboard = () => {
                           sx={{
                             display: "flex",
                             alignItems: "center",
-                            borderRadius: 0,
-                            px: 1,
+                            px: isMobile ? 0.5 : 1,
                           }}
                         >
                           <Avatar
                             sx={{
-                              width: 20,
-                              height: 20,
+                              width: isMobile ? 16 : 20,
+                              height: isMobile ? 16 : 20,
                               borderRadius: 2,
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
                               background: "#faf3e0",
-                              mr: 2,
-                              fontSize: "1.5rem",
+                              mr: isMobile ? 1 : 2,
+                              fontSize: isMobile ? "1.2rem" : "1.5rem",
                             }}
                             src={holding.Token_Avatar}
                           />
-
                           <Box flex={1}>
-                            <Typography fontWeight="400" color="black">
+                            <Typography
+                              fontWeight="400"
+                              color="black"
+                              fontSize={isMobile ? "0.75rem" : "1rem"}
+                            >
                               {holding.Token_Amount} {"  "} {holding.Token_Name}
                             </Typography>
                           </Box>
                           <Box sx={{ textAlign: "right" }}>
-                            <Typography fontWeight="400" color="black">
+                            <Typography
+                              fontWeight="400"
+                              color="black"
+                              fontSize={isMobile ? "0.75rem" : "1rem"}
+                            >
                               {holding.Usd_Value}
                             </Typography>
                           </Box>
@@ -303,102 +311,144 @@ const AccountDashboard = () => {
                 </Stack>
               </Grid>
 
-              {/* Right Column - Recent Trades */}
-              <Grid item xs={12} md={8}>
-                <GlassCard sx={{ m: 1 }}>
+              {/* Right Column - Defi Trades */}
+              <Grid item xs={12} sm={6} md={8} sx={{ display: "flex" }}>
+                <GlassCard
+                  sx={{
+                    m: 1,
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
                   <Stack
                     direction="row"
                     alignItems="center"
                     justifyContent="space-between"
-                    space={3}
                   >
-                    <Typography variant="h6" fontWeight="700" color="black">
+                    <Typography
+                      variant={isMobile ? "body1" : "h6"}
+                      fontWeight="700"
+                      color="black"
+                    >
                       Defi Trades
                     </Typography>
-                    <TextField
-                      size="small"
-                      placeholder="Search trades..."
-                      InputProps={{
-                        startAdornment: (
-                          <SearchIcon sx={{ mr: 1, color: "text.secondary" }} />
-                        ),
-                      }}
-                      sx={{
-                        width: 200,
-                        "& .MuiOutlinedInput-root": {
-                          background: "#faf3e0",
-                        },
-                      }}
-                    />
                   </Stack>
+
+                  {/* Scrollable Trades List */}
                   <Stack
-                    minHeight={150}
+                    flex={1} // Makes sure it fills height
+                    minHeight={isMobile ? 120 : 150}
                     sx={{
-                      maxHeight: 150, // Adjust as needed
+                      maxHeight: isMobile ? 120 : 150,
                       overflowY: "auto",
-                      overflowX: "hidden", // Prevents horizontal scrolling
-                      scrollbarWidth: "thin", // For Firefox
+                      overflowX: "hidden",
                       backgroundColor: "#faf3e0",
-                      "&::-webkit-scrollbar": {
-                        width: "3px", // Adjust scrollbar width
-                      },
+                      scrollbarWidth: "thin",
+                      "&::-webkit-scrollbar": { width: "3px" },
                       "&::-webkit-scrollbar-thumb": {
-                        backgroundColor: "#faf3e0", // Scrollbar color
+                        backgroundColor: "#d9c7a3",
                         borderRadius: "10px",
                       },
                       "&::-webkit-scrollbar-thumb:hover": {
-                        backgroundColor: "#faf3e0",
+                        backgroundColor: "#cbb997",
                       },
                     }}
                   >
                     {defi_trades.map((trade, index) => (
-                      <Box
-                        key={index}
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          borderRadius: 2,
-                          px: 1, // Adds spacing for better UI
-                        }}
-                      >
-                        <Box flex={1}>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              alignItems: "center",
-                            }}
-                          >
+                      <Grid container key={index} pl={1} pr={1} spacing={0.25}>
+                        <Grid item xs={3} sm={3} md={3}>
+                          <Box textAlign="left">
                             <Typography
-                              fontWeight="400"
                               sx={{
                                 color:
                                   trade.Buy_Sell === "Buy" ? "green" : "red",
+                                fontSize: {
+                                  xs: "12px",
+                                  sm: "14px",
+                                  md: "16px",
+                                },
+                                display: "inline-block",
                               }}
                             >
-                              {trade.Buy_Sell}
-                            </Typography>
-                            <Typography fontWeight="400" color="black" pl={5}>
-                              {trade.Sol_Amount} SOL
+                              {trade.Buy_Sell === "Buy" ? "Aped" : "Flipped"}
                             </Typography>
                           </Box>
-                        </Box>
-                        <Box sx={{ textAlign: "center" }}>
-                          <Typography color="black" pr={5}>
-                            {trade.Token_Amount} {trade.Token}{" "}
-                          </Typography>
-                        </Box>
-                        <Link
-                          href={trade.Link}
-                          sx={{
-                            textDecoration: "none",
-                            color: "black",
-                            fontWeight: 600,
-                          }}
-                          target="_blank"
-                        >
-                          {getTimeDifference(getCurrentCETTime(), trade.Time)}
-                        </Link>
-                      </Box>
+                        </Grid>
+
+                        <Grid item xs={8} sm={8} md={8}>
+                          <Box
+                            display="flex"
+                            justifyContent={{
+                              xs: "center",
+                              sm: "space-between",
+                            }}
+                            gap={0.5}
+                            alignItems="center"
+                            flexWrap="wrap"
+                          >
+                            <Box textAlign="left">
+                              <Typography
+                                sx={{
+                                  color: "black",
+                                  fontSize: {
+                                    xs: "10px",
+                                    sm: "14px",
+                                    md: "16px",
+                                  },
+                                }}
+                              >
+                                {trade.Sol_Amount} SOL
+                              </Typography>
+                            </Box>
+                            <Box textAlign="right">
+                              <Typography
+                                sx={{
+                                  color: "black",
+                                  fontSize: {
+                                    xs: "10px",
+                                    sm: "14px",
+                                    md: "16px",
+                                  },
+                                }}
+                              >
+                                {trade.Token_Amount} {trade.Token}
+                              </Typography>
+                            </Box>
+                          </Box>
+                        </Grid>
+
+                        <Grid item xs={1} sm={1} md={1}>
+                          <Box textAlign="right">
+                            <Typography
+                              sx={{
+                                color: "black",
+                                fontSize: {
+                                  xs: "10px",
+                                  sm: "12px",
+                                  md: "14px",
+                                },
+                              }}
+                            >
+                              <Link
+                                href={trade.Link}
+                                sx={{
+                                  textDecoration: "none",
+                                  color: "black",
+                                  fontWeight: 600,
+                                  fontSize: isMobile ? "0.8rem" : "1rem",
+                                }}
+                                target="_blank"
+                              >
+                                {getTimeDifference(
+                                  getCurrentCETTime(),
+                                  trade.Time
+                                )}
+                              </Link>
+                            </Typography>
+                          </Box>
+                        </Grid>
+                      </Grid>
                     ))}
                   </Stack>
                 </GlassCard>
@@ -416,21 +466,6 @@ const AccountDashboard = () => {
                 >
                   <Typography variant="h6" fontWeight="700" color="black">
                     Token PnL{"  "}
-                    <Select
-                      size="small"
-                      value={selectedValue}
-                      onChange={handleChange}
-                      defaultValue="recent"
-                      sx={{
-                        minWidth: 120,
-                        p: 1,
-                        height: 10,
-                      }}
-                    >
-                      <MenuItem value="recent">Most Recent</MenuItem>
-                      <MenuItem value="profit">Profit</MenuItem>
-                      <MenuItem value="loss">Loss</MenuItem>
-                    </Select>
                   </Typography>
                   <Typography
                     variant="h6"
@@ -445,39 +480,41 @@ const AccountDashboard = () => {
                     gridTemplateColumns: {
                       xs: "1fr", // Full-width for smaller screens
                       sm: "repeat(auto-fit, minmax(250px, 1fr))", // Fluid layout for mid-sized screens
-                      md: "repeat(4, 1fr)", // 4 columns on medium screens and above
+                      md: "repeat(3, 1fr)", // 4 columns on medium screens and above
+                      lg: "repeat(4, 1fr)", // Three equal columns on large screens
                     },
                     border: "1px solid black",
                     width: "100%",
                     p: 1,
+                    gap:1,
                     background: "#faf3e0",
                     maxHeight: window.screen.height - 100,
                     overflowY: "auto",
                     overflowX: "hidden",
-                    "&::-webkit-scrollbar": {
-                      width: "8px",
-                    },
+                    backgroundColor: "#faf3e0",
+                    scrollbarWidth: "thin",
+                    "&::-webkit-scrollbar": { width: "3px" },
                     "&::-webkit-scrollbar-thumb": {
-                      backgroundColor: "rgb(200, 160, 60)",
-                      borderRadius: "1px",
+                      backgroundColor: "#d9c7a3",
+                      borderRadius: "10px",
                     },
-                    "&::-webkit-scrollbar-track": {
-                      background: "#faf3e0",
+                    "&::-webkit-scrollbar-thumb:hover": {
+                      backgroundColor: "#cbb997",
                     },
                   }}
                 >
                   {Object.entries(tokenPnl).map(([token, transactions]) => (
                     <Paper
                       key={token}
-                      sx={{ marginBottom: 2, background: "#faf3e0" }}
+                      sx={{ background: "#faf3e0", border:"dotted 1px black",borderRadius:0, }}
                     >
                       <Box
                         sx={{
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "space-between",
-                          pl: 3,
-                          pr: 3,
+                          pl: 1,
+                          pr: 1,
                           borderRadius: 0,
                           background: "#faf3e0 !important",
                           py: 1, // Added padding for vertical spacing
@@ -508,7 +545,7 @@ const AccountDashboard = () => {
                           color="black"
                           sx={{
                             ml: "auto",
-                            fontSize: { xs: "0.9rem", sm: "1rem" },
+                            fontSize: { xs: "0.8rem", sm: "1rem" },
                           }}
                         >
                           {(
@@ -534,10 +571,10 @@ const AccountDashboard = () => {
                         <Box
                           sx={{ display: "flex", alignItems: "center", gap: 1 }}
                         >
-                          <Typography variant="h6" color="green">
+                          <Typography fontSize={isMobile ? "0.75rem" : "1rem"} color="green">
                             aped
                           </Typography>
-                          <Typography variant="h6" color="black">
+                          <Typography fontSize={isMobile ? "0.75rem" : "1rem"} color="black">
                             {transactions.buy.Sol.toFixed(2)}
                             {" ("}
                             {transactions.buy.Token}
@@ -546,10 +583,7 @@ const AccountDashboard = () => {
                         </Box>
                         <Typography
                           color="black"
-                          sx={{
-                            ml: "auto",
-                            fontSize: { xs: "0.9rem", sm: "1rem" },
-                          }}
+                          fontSize={isMobile ? "0.75rem" : "1rem"}
                         >
                           {getTimeDifference(
                             getCurrentCETTime(),
@@ -574,10 +608,10 @@ const AccountDashboard = () => {
                         <Box
                           sx={{ display: "flex", alignItems: "center", gap: 1 }}
                         >
-                          <Typography variant="h6" color="red">
-                            Sell
+                          <Typography fontSize={isMobile ? "0.75rem" : "1rem"} color="red">
+                            Flipped
                           </Typography>
-                          <Typography variant="h6" color="black">
+                          <Typography fontSize={isMobile ? "0.75rem" : "1rem"} color="black">
                             {transactions.sell.Sol.toFixed(2)}
                             {" ("}
                             {transactions.sell.Token}
@@ -586,10 +620,7 @@ const AccountDashboard = () => {
                         </Box>
                         <Typography
                           color="black"
-                          sx={{
-                            ml: "auto",
-                            fontSize: { xs: "0.9rem", sm: "1rem" },
-                          }}
+                          fontSize={isMobile ? "0.75rem" : "1rem"}
                         >
                           {getTimeDifference(
                             getCurrentCETTime(),
