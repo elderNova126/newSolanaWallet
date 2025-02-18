@@ -1,18 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Avatar,
-  Box,
-  Link,
-  Typography,
-  Paper,
-  Chip,
-  Tooltip,
-  colors,
-} from "@mui/material";
-import { alpha, useTheme } from "@mui/material/styles";
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import LocalOfferIcon from "@mui/icons-material/LocalOffer";
-import CustomButton from "./CustomButton";
+import { Avatar, Box, Link, Typography, Paper } from "@mui/material";
 
 const Leaderboard = (count) => {
   const [leader, setLeader] = useState([]);
@@ -39,7 +26,6 @@ const Leaderboard = (count) => {
       document.getElementById("TopKol").scrollIntoView({ behavior: "smooth" });
     }
   }, []);
-  // console.log("dddddddddddddddddddddddd",leader)
   return (
     <Box
       sx={{
@@ -79,54 +65,60 @@ const Leaderboard = (count) => {
               display: "flex", // Enables flexbox
               alignItems: "center", // Centers content vertically
               justifyContent: "center", // Centers content horizontally
-              height: "100%", // Ensures Box takes full height for vertical
-              width: 30,
-              mb: { xs: 1, sm: 0 }, // Margin for small screens
+              gap: 1,
             }}
           >
-            {index === 0 ? (
+            <Box
+              sx={{
+                display: "flex",
+                width: 30,
+                textAlign: "center",
+                justifyContent: "center",
+              }}
+            >
+              {index === 0 ? (
+                <Avatar
+                  src="https://kolscan.io/images/Trophy.webp"
+                  alt={`${tx.name} pfp`}
+                  sx={{
+                    textDecoration: "none",
+                    width: 30,
+                    height: 30,
+                  }}
+                />
+              ) : (
+                <Typography sx={{ color: "black", fontWeight: 800 }}>
+                  {index + 1}
+                </Typography>
+              )}
+            </Box>
+
+            <Link
+              href={`/account/${tx.wallet_address.split("/").pop()}`}
+              sx={{
+                textDecoration: "none",
+                display: "flex",
+                color: "black",
+                fontWeight: 600,
+                flexDirection: { xs: "row", sm: "row" }, // Vertical on small screens, horizontal on larger screens
+                alignItems: "center",
+                gap: 1, // Increased gap for horizontal layout
+              }}
+            >
               <Avatar
-                src="https://kolscan.io/images/Trophy.webp"
+                src={tx.avatar}
                 alt={`${tx.name} pfp`}
                 sx={{
                   textDecoration: "none",
-                  width: 30,
-                  height: 30,
+                  width: 40,
+                  height: 40,
                 }}
               />
-            ) : (
-              <Typography sx={{ color: "black", fontWeight: 800 }}>
-                {index + 1}
+              <Typography sx={{ color: "black", textAlign: "center" }}>
+                {tx.username}
               </Typography>
-            )}
+            </Link>
           </Box>
-
-          <Link
-            href={`/account/${tx.wallet_address.split("/").pop()}`}
-            sx={{
-              textDecoration: "none",
-              display: "flex",
-              color: "black",
-              fontWeight: 600,
-              flexDirection: { xs: "column", sm: "row" }, // Vertical on small screens, horizontal on larger screens
-              alignItems: "center",
-              gap: 1, // Increased gap for horizontal layout
-            }}
-          >
-            <Avatar
-              src={tx.avatar}
-              alt={`${tx.name} pfp`}
-              sx={{
-                textDecoration: "none",
-                width: 40,
-                height: 40,
-              }}
-            />
-            <Box sx={{ color: "black", textAlign: "center" }}>
-              {tx.username}
-            </Box>
-          </Link>
-
           <Box sx={{ flexGrow: 1 }}>
             <Box sx={{ display: "flex", gap: 1, mb: 0.5 }}>
               <Link
@@ -184,12 +176,15 @@ const Leaderboard = (count) => {
               alignItems: "center",
             }}
           >
-            <Typography sx={{ color: "black" }}>{tx.buy}/<span style={{ color: "red" }}>{tx.sell}</span></Typography>
-            <Typography sx={{ color: "black", pl: 1, fontWeight: 800 }}>
-              {tx.total_profit}
-            </Typography>
-            <Typography sx={{ color: "black", fontWeight: 800 }}>
-              {tx.usd_value}
+            <Typography sx={{ color: "black" }}>
+              {tx.buy}/
+              <span style={{ color: "red", paddingRight: "4px" }}>
+                {tx.sell}
+              </span>
+              <span style={{ fontWeight: 800 }}>
+                {tx.total_profit}
+                {tx.usd_value}
+              </span>
             </Typography>
           </Box>
         </Paper>

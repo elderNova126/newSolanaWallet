@@ -51,7 +51,7 @@ export default function DashBoard() {
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   borderRadius: 0, // Setting border radius to 0
-                  borderBottom: "2px solid #000000",
+                  borderBottom: "1px solid #000000",
                   pl: 3,
                 }}
               >
@@ -70,6 +70,7 @@ export default function DashBoard() {
                 borderRadius: 0, // Setting border radius to 0
                 background: "rgb(156, 185, 212) 0%",
                 borderRight: "2px solid #000000",
+                borderTop:"2px solid #000000",
               }}
             >
               <Typography
@@ -83,7 +84,7 @@ export default function DashBoard() {
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   borderRadius: 0, // Setting border radius to 0
-                  borderBottom: "2px solid #000000",
+                  borderBottom: "1px solid #000000",
                   pl: 3,
                 }}
               >
@@ -102,6 +103,7 @@ export default function DashBoard() {
                 borderRadius: 0, // Setting border radius to 0
                 background: "rgb(212, 194, 156) 0%",
                 borderRight: "2px solid #000000",
+                borderTop:"2px solid #000000",
               }}
             >
               <Typography
@@ -115,7 +117,7 @@ export default function DashBoard() {
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   borderRadius: 0, // Setting border radius to 0
-                  borderBottom: "2px solid #000000",
+                  borderBottom: "1px solid #000000",
                   textAlign: "center",
                   pl: 3,
                 }}
@@ -133,6 +135,7 @@ export default function DashBoard() {
                 flexDirection: "column",
                 p: 0,
                 borderRight: "2px solid #000000",
+                borderTop:"2px solid #000000",
               }}
             >
               <Paper
@@ -155,7 +158,7 @@ export default function DashBoard() {
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     borderRadius: 0, // Setting border radius to 0
-                    borderBottom: "2px solid #000000",
+                    borderBottom: "1px solid #000000",
                     pl: 3,
                   }}
                 >
