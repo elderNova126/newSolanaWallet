@@ -184,9 +184,7 @@ const Leaderboard = (count) => {
               alignItems: "center",
             }}
           >
-            <Typography sx={{ color: "black" }}>{tx.buy}</Typography>
-            <Typography sx={{ color: "black" }}>/</Typography>
-            <Typography sx={{ color: "red" }}>{tx.sell}</Typography>
+            <Typography sx={{ color: "black" }}>{tx.buy}/<span style={{ color: "red" }}>{tx.sell}</span></Typography>
             <Typography sx={{ color: "black", pl: 1, fontWeight: 800 }}>
               {tx.total_profit}
             </Typography>

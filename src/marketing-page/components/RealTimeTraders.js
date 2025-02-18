@@ -299,26 +299,37 @@ const RealTimeTraders = () => {
                             pr={1}
                             spacing={0.25}
                           >
+                            {/* Buy/Sell Column */}
                             <Grid item xs={2} sm={2} md={2}>
                               <Box textAlign="left">
                                 <Typography
                                   sx={{
                                     color:
-                                      item.Buy_Sell === "Buy" ? "green" : "red", // Change color based on Buy/Sell // Adjust font size based on screen size
-                                    display: "inline-block", // Ensure width is respected
+                                      item.Buy_Sell === "Buy" ? "green" : "red",
+                                    fontSize: {
+                                      xs: "12px",
+                                      sm: "14px",
+                                      md: "16px",
+                                    }, // Responsive font size
+                                    display: "inline-block",
                                   }}
                                 >
-                                  {item.Buy_Sell === "Buy" ? "Aped" : "flipped"}
+                                  {item.Buy_Sell === "Buy" ? "Aped" : "Flipped"}
                                 </Typography>
                               </Box>
                             </Grid>
 
+                            {/* Token Amount and Name */}
                             <Grid item xs={9} sm={9} md={9}>
                               <Box
                                 display="flex"
-                                justifyContent="space-between"
+                                justifyContent={{
+                                  xs: "center",
+                                  sm: "space-between",
+                                }}
+                                gap={0.5}
                                 alignItems="center"
-                                flexWrap="wrap" // Ensures it wraps on smaller screens
+                                flexWrap="wrap"
                               >
                                 {/* Left Section */}
                                 <Box textAlign="left">
@@ -326,6 +337,11 @@ const RealTimeTraders = () => {
                                     <Typography
                                       sx={{
                                         color: "black",
+                                        fontSize: {
+                                          xs: "10px",
+                                          sm: "14px",
+                                          md: "16px",
+                                        },
                                       }}
                                     >
                                       {item.Sol_Amount} sol
@@ -335,14 +351,24 @@ const RealTimeTraders = () => {
                                     <Typography
                                       sx={{
                                         color: "black",
+                                        fontSize: {
+                                          xs: "10px",
+                                          sm: "14px",
+                                          md: "16px",
+                                        },
                                       }}
                                     >
                                       {item.Token_Amount}{" "}
                                       <Link
-                                        href={`https://photon-sol.tinyastro.io/en/lp/${username}`} // Fixed Twitter link
+                                        href={`https://photon-sol.tinyastro.io/en/lp/${username}`}
                                         target="_blank"
                                       >
-                                        <span style={{ fontWeight: "bold", color:'black'}}>
+                                        <span
+                                          style={{
+                                            fontWeight: "bold",
+                                            color: "black",
+                                          }}
+                                        >
                                           {item.Token}
                                         </span>
                                       </Link>
@@ -356,14 +382,24 @@ const RealTimeTraders = () => {
                                     <Typography
                                       sx={{
                                         color: "black",
+                                        fontSize: {
+                                          xs: "10px",
+                                          sm: "14px",
+                                          md: "16px",
+                                        },
                                       }}
                                     >
                                       {item.Token_Amount}{" "}
                                       <Link
-                                        href={`https://photon-sol.tinyastro.io/en/lp/${username}`} // Fixed Twitter link
+                                        href={`https://photon-sol.tinyastro.io/en/lp/${username}`}
                                         target="_blank"
                                       >
-                                        <span style={{ fontWeight: "bold", color:'black'}}>
+                                        <span
+                                          style={{
+                                            fontWeight: "bold",
+                                            color: "black",
+                                          }}
+                                        >
                                           {item.Token}
                                         </span>
                                       </Link>
@@ -373,6 +409,11 @@ const RealTimeTraders = () => {
                                     <Typography
                                       sx={{
                                         color: "black",
+                                        fontSize: {
+                                          xs: "10px",
+                                          sm: "14px",
+                                          md: "16px",
+                                        },
                                       }}
                                     >
                                       {item.Sol_Amount} sol
@@ -382,21 +423,27 @@ const RealTimeTraders = () => {
                               </Box>
                             </Grid>
 
+                            {/* Time Column */}
                             <Grid item xs={1} sm={1} md={1}>
                               <Box textAlign="right">
                                 <Typography
                                   sx={{
                                     color: "black",
+                                    fontSize: {
+                                      xs: "10px",
+                                      sm: "12px",
+                                      md: "14px",
+                                    },
                                   }}
                                 >
                                   <Link
-                                    href={item.Link} // URL to open in the new tab
-                                    target="_blank" // Open in a new tab
-                                    rel="noopener noreferrer" // Security best practice when using target="_blank"
+                                    href={item.Link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     sx={{
                                       textDecoration: "none",
-                                      color: "inherit", // Keeps the text color consistent
-                                      cursor: "pointer", // Pointer cursor effect
+                                      color: "inherit",
+                                      cursor: "pointer",
                                     }}
                                   >
                                     {getTimeDifference(
