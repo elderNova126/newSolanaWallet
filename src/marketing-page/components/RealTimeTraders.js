@@ -241,7 +241,7 @@ const RealTimeTraders = () => {
                           }}
                         >
                           <Link
-                            href={`${wallet}.html`}
+                            href={`/account/${wallet}`}
                             sx={{
                               textDecoration: "none",
                               fontSize: 16,
