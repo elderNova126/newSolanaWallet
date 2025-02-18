@@ -212,7 +212,7 @@ export default function DashBoard() {
                     Top Kols
                   </Typography>
                   <Leaderboard count={9} />
-                  <Link href={`/trades`}>
+                  <Link href={`/details#TopKol`}>
                     <Typography
                       variant="h5"
                       sx={{
