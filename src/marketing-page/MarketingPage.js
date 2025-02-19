@@ -4,6 +4,7 @@ import Divider from "@mui/material/Divider";
 import AppAppBar from "./components/AppAppBar";
 import Trade from "./components/Trades";
 import DashBoard from "./components/DashBoard";
+import About from "./components/About";
 import AppTheme from "../shared-theme/AppTheme";
 import Footer from "./components/Footer";
 // import AccountDetail from "./components/AccountDetail";
@@ -19,8 +20,8 @@ export default function MarketingPage(props) {
         <BrowserRouter>
           <AppAppBar />
           <Routes>
-            <Route path="/" element={<Navigate to="/about" />} />
-            <Route exact path="/about" element={<DashBoard />} />
+            <Route path="/" element={<DashBoard />} />
+            <Route exact path="/about" element={<About />} />
             <Route path="/details" element={<Trade />} />
             <Route path="/account/:id" element={<AccountDetail />} />
           </Routes>

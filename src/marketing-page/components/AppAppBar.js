@@ -85,7 +85,7 @@ export default function AppAppBar() {
                 style={{ width: "30px", height: "30px" }}
                 alt="KOLs Online Logo"
               />
-              <LogoTypography onClick={() => navigate("/about")}>
+              <LogoTypography onClick={() => navigate("/")}>
                 KOLs Online
               </LogoTypography>
             </Box>
