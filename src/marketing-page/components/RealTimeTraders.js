@@ -8,6 +8,7 @@ import {
   Grid,
   useMediaQuery,
   CircularProgress,
+  Container,
 } from "@mui/material";
 import { CryptoTrans } from "../TransFunc/CryptoTrans";
 import io from "socket.io-client";
@@ -98,7 +99,7 @@ const RealTimeTraders = () => {
         setError(error.message);
         // setLoading(false);
       });
-
+      
     socket.on("new_trade", (newTrade) => {
       console.log("New Trade: ", newTrade);
       setTrades((prevTrades) => {
@@ -144,117 +145,113 @@ const RealTimeTraders = () => {
 
     return () => clearInterval(interval); // Cleanup on unmount
   }, []); // Run once on mount
-
+  console.log("ddddddddddddd",trades)
   return (
-    <Box>
-      {loading ? (
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          sx={{ minHeight: "100vh", width: "100%" }}
+    <Box
+      id="Live"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        p: 0,
+        borderRight: "2px solid #000000",
+        borderLeft: "2px solid #000000",
+      }}
+    >
+      <Paper
+        elevation={0}
+        sx={{
+          width: "100%",
+          borderRadius: 0, // Setting border radius to 0
+          background: "rgb(236, 236, 236)",
+          p: 0,
+        }}
+      >
+        <Typography
+          variant="h5"
+          sx={{
+            fontFamily: "VT323, monospace",
+            fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
+            fontWeight: 700,
+            background: "rgb(0, 0, 0) 0%",
+            backgroundClip: "text",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            borderRadius: 0, // Setting border radius to 0
+            borderBottom: "1px solid #000000",
+            pl: 3,
+          }}
         >
-          <CircularProgress />
-        </Box>
-      ) : (
-        <>
-          <Box
-            sx={{
-              display: "grid",
-              gridTemplateColumns: {
-                xs: "1fr", // Single column on extra-small screens
-                sm: "repeat(1fr)", // Two flexible columns on small screens
-                md: "repeat(2, 1fr)", // Two equal columns on medium screens
-                lg: "repeat(3, 1fr)", // Three equal columns on large screens
-              },
-              width: "100%",
-              p: 1,
-              background: "rgb(236, 236, 236)",
-              maxHeight: window.screen.height - 350,
-              overflowY: "auto",
-              "&::-webkit-scrollbar": {
-                width: "8px",
-              },
-              "&::-webkit-scrollbar-thumb": {
-                backgroundColor: "rgb(117, 116, 116)", // Adjusted for contrast
-                borderRadius: "4px",
-              },
-              "&::-webkit-scrollbar-track": {
-                background: "rgb(236, 236, 236)",
-              },
-            }}
-          >
-            {Object.entries(trades).map(([wallet, transactions]) => {
-              const username = transactions[0]?.User_Name || "Unknown"; // Fix undefined username
-              const Avatar_link = transactions[0]?.Avatar || "Unknown"; // Fix undefined username
+          Realtime Trades
+        </Typography>
+        <Box>
+          {loading ? (
+            <Box
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              sx={{ minHeight: "100vh", width: "100%" }}
+            >
+              <CircularProgress />
+            </Box>
+          ) : (
+            <>
+              <Box
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: {
+                    xs: "1fr", // Single column on extra-small screens
+                    sm: "repeat(1fr)", // Two flexible columns on small screens
+                    md: "repeat(2, 1fr)", // Two equal columns on medium screens
+                    lg: "repeat(3, 1fr)", // Three equal columns on large screens
+                  },
+                  width: "100%",
+                  p: 1,
+                  background: "rgb(236, 236, 236)",
+                  height: window.screen.height - 350,
+                  overflowY: "auto",
+                  "&::-webkit-scrollbar": {
+                    width: "8px",
+                  },
+                  "&::-webkit-scrollbar-thumb": {
+                    backgroundColor: "rgb(117, 116, 116)", // Adjusted for contrast
+                    borderRadius: "4px",
+                  },
+                  "&::-webkit-scrollbar-track": {
+                    background: "rgb(236, 236, 236)",
+                  },
+                }}
+              >
+                {Object.entries(trades).map(([wallet, transactions]) => {
+                  const username = transactions[0]?.User_Name || "Unknown"; // Fix undefined username
+                  const Avatar_link = transactions[0]?.Avatar || "Unknown"; // Fix undefined username
 
-              return (
-                <>
-                  <Paper
-                    key={wallet}
-                    sx={{
-                      border: "1px solid black",
-                      background: "#faf3e0",
-                      // minWidth: "250px", // Prevent items from shrinking too much
-                    }}
-                  >
-                    <Box
-                      elevation={2}
-                      sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        gap: { xs: 1, sm: 2 }, // Reduce gap for smaller screens
-                        pl: 1,
-                        pr: 1,
-                        pt: 1,
-                        borderRadius: 0,
-                        background: "#faf3e0",
-                        borderBottom: "dotted 1px black",
-                      }}
-                    >
-                      <Link
-                        href={`/account/${wallet}`}
+                  return (
+                    <>
+                      <Paper
+                        key={wallet}
                         sx={{
-                          textDecoration: "none",
-                          display: "flex",
-                          alignItems: "center",
+                          border: "1px solid black",
+                          background: "#faf3e0",
+                          // minWidth: "250px", // Prevent items from shrinking too much
                         }}
                       >
-                        <Avatar
-                          src={Avatar_link}
-                          alt={`user pfp`}
-                          sx={{
-                            width: { xs: 30, sm: 40 },
-                            height: { xs: 30, sm: 40 },
-                          }}
-                        />
-                      </Link>
-
-                      <Box sx={{ flexGrow: 1 }}>
                         <Box
+                          elevation={2}
                           sx={{
                             display: "flex",
+                            flexDirection: "row",
                             alignItems: "center",
-                            gap: 1,
-                            mb: 0.5,
+                            gap: { xs: 1, sm: 2 }, // Reduce gap for smaller screens
+                            pl: 1,
+                            pr: 1,
+                            pt: 1,
+                            borderRadius: 0,
+                            background: "#faf3e0",
+                            borderBottom: "dotted 1px black",
                           }}
                         >
                           <Link
                             href={`/account/${wallet}`}
-                            sx={{
-                              textDecoration: "none",
-                              fontSize: 16,
-                              color: "black",
-                              fontWeight: 800,
-                            }}
-                          >
-                            {username}
-                          </Link>
-                          <Link
-                            href={`https://x.com/${username}`} // Fixed Twitter link
-                            target="_blank"
-                            rel="noopener noreferrer"
                             sx={{
                               textDecoration: "none",
                               display: "flex",
@@ -262,209 +259,255 @@ const RealTimeTraders = () => {
                             }}
                           >
                             <Avatar
-                              src="/images/Twitter.webp" // Fixed Twitter image path
-                              alt={`${username} Twitter`}
+                              src={Avatar_link}
+                              alt={`user pfp`}
                               sx={{
-                                width: { xs: 15, sm: 20 },
-                                height: { xs: 15, sm: 20 },
+                                width: { xs: 30, sm: 40 },
+                                height: { xs: 30, sm: 40 },
                               }}
                             />
                           </Link>
-                        </Box>
-                      </Box>
-                    </Box>
 
-                    {/* Transactions List */}
-                    <Box
-                      sx={{
-                        maxHeight: "200px",
-                        overflowY: "auto",
-                        "&::-webkit-scrollbar": {
-                          width: "8px",
-                        },
-                        "&::-webkit-scrollbar-thumb": {
-                          backgroundColor: "#faf3e0",
-                        },
-                        "&::-webkit-scrollbar-track": {
-                          background: "#faf3e0",
-                        },
-                      }}
-                    >
-                      {transactions.map((item, index) => (
-                        <>
-                          <Grid
-                            container
-                            key={index}
-                            pl={1}
-                            pr={1}
-                            spacing={0.25}
-                          >
-                            {/* Buy/Sell Column */}
-                            <Grid item xs={2} sm={2} md={2}>
-                              <Box textAlign="left">
-                                <Typography
-                                  sx={{
-                                    color:
-                                      item.Buy_Sell === "Buy" ? "green" : "red",
-                                    fontSize: {
-                                      xs: "12px",
-                                      sm: "14px",
-                                      md: "16px",
-                                    }, // Responsive font size
-                                    display: "inline-block",
-                                  }}
-                                >
-                                  {item.Buy_Sell === "Buy" ? "Aped" : "Flipped"}
-                                </Typography>
-                              </Box>
-                            </Grid>
-
-                            {/* Token Amount and Name */}
-                            <Grid item xs={9} sm={9} md={9}>
-                              <Box
-                                display="flex"
-                                justifyContent={{
-                                  xs: "center",
-                                  sm: "space-between",
+                          <Box sx={{ flexGrow: 1 }}>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 1,
+                                mb: 0.5,
+                              }}
+                            >
+                              <Link
+                                href={`/account/${wallet}`}
+                                sx={{
+                                  textDecoration: "none",
+                                  fontSize: 16,
+                                  color: "black",
+                                  fontWeight: 800,
                                 }}
-                                gap={0.5}
-                                alignItems="center"
-                                flexWrap="wrap"
                               >
-                                {/* Left Section */}
-                                <Box textAlign="left">
-                                  {item.Buy_Sell === "Buy" && (
-                                    <Typography
-                                      sx={{
-                                        color: "black",
-                                        fontSize: {
-                                          xs: "10px",
-                                          sm: "14px",
-                                          md: "16px",
-                                        },
-                                      }}
-                                    >
-                                      {item.Sol_Amount} sol
-                                    </Typography>
-                                  )}
-                                  {item.Buy_Sell === "Sell" && (
-                                    <Typography
-                                      sx={{
-                                        color: "black",
-                                        fontSize: {
-                                          xs: "10px",
-                                          sm: "14px",
-                                          md: "16px",
-                                        },
-                                      }}
-                                    >
-                                      {item.Token_Amount}{" "}
-                                      <Link
-                                        href={`https://photon-sol.tinyastro.io/en/lp/${username}`}
-                                        target="_blank"
-                                      >
-                                        <span
-                                          style={{
-                                            fontWeight: "bold",
-                                            color: "black",
-                                          }}
-                                        >
-                                          {item.Token}
-                                        </span>
-                                      </Link>
-                                    </Typography>
-                                  )}
-                                </Box>
-
-                                {/* Right Section */}
-                                <Box textAlign="right">
-                                  {item.Buy_Sell === "Buy" && (
-                                    <Typography
-                                      sx={{
-                                        color: "black",
-                                        fontSize: {
-                                          xs: "10px",
-                                          sm: "14px",
-                                          md: "16px",
-                                        },
-                                      }}
-                                    >
-                                      {item.Token_Amount}{" "}
-                                      <Link
-                                        href={`https://photon-sol.tinyastro.io/en/lp/${username}`}
-                                        target="_blank"
-                                      >
-                                        <span
-                                          style={{
-                                            fontWeight: "bold",
-                                            color: "black",
-                                          }}
-                                        >
-                                          {item.Token}
-                                        </span>
-                                      </Link>
-                                    </Typography>
-                                  )}
-                                  {item.Buy_Sell === "Sell" && (
-                                    <Typography
-                                      sx={{
-                                        color: "black",
-                                        fontSize: {
-                                          xs: "10px",
-                                          sm: "14px",
-                                          md: "16px",
-                                        },
-                                      }}
-                                    >
-                                      {item.Sol_Amount} sol
-                                    </Typography>
-                                  )}
-                                </Box>
-                              </Box>
-                            </Grid>
-
-                            {/* Time Column */}
-                            <Grid item xs={1} sm={1} md={1}>
-                              <Box textAlign="right">
-                                <Typography
+                                {username}
+                              </Link>
+                              <Link
+                                href={`https://x.com/${username}`} // Fixed Twitter link
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                sx={{
+                                  textDecoration: "none",
+                                  display: "flex",
+                                  alignItems: "center",
+                                }}
+                              >
+                                <Avatar
+                                  src="/images/Twitter.webp" // Fixed Twitter image path
+                                  alt={`${username} Twitter`}
                                   sx={{
-                                    color: "black",
-                                    fontSize: {
-                                      xs: "10px",
-                                      sm: "12px",
-                                      md: "14px",
-                                    },
+                                    width: { xs: 15, sm: 20 },
+                                    height: { xs: 15, sm: 20 },
                                   }}
-                                >
-                                  <Link
-                                    href={item.Link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    sx={{
-                                      textDecoration: "none",
-                                      color: "inherit",
-                                      cursor: "pointer",
+                                />
+                              </Link>
+                            </Box>
+                          </Box>
+                        </Box>
+
+                        {/* Transactions List */}
+                        <Box
+                          sx={{
+                            maxHeight: "200px",
+                            overflowY: "auto",
+                            "&::-webkit-scrollbar": {
+                              width: "8px",
+                            },
+                            "&::-webkit-scrollbar-thumb": {
+                              backgroundColor: "#faf3e0",
+                            },
+                            "&::-webkit-scrollbar-track": {
+                              background: "#faf3e0",
+                            },
+                          }}
+                        >
+                          {transactions.map((item, index) => (
+                            <>
+                              <Grid
+                                container
+                                key={index}
+                                pl={1}
+                                pr={1}
+                                spacing={0.25}
+                              >
+                                {/* Buy/Sell Column */}
+                                <Grid item xs={2} sm={2} md={2}>
+                                  <Box textAlign="left">
+                                    <Typography
+                                      sx={{
+                                        color:
+                                          item.Buy_Sell === "Buy"
+                                            ? "green"
+                                            : "red",
+                                        fontSize: {
+                                          xs: "12px",
+                                          sm: "14px",
+                                          md: "16px",
+                                        }, // Responsive font size
+                                        display: "inline-block",
+                                      }}
+                                    >
+                                      {item.Buy_Sell === "Buy"
+                                        ? "Aped"
+                                        : "Flipped"}
+                                    </Typography>
+                                  </Box>
+                                </Grid>
+
+                                {/* Token Amount and Name */}
+                                <Grid item xs={9} sm={9} md={9}>
+                                  <Box
+                                    display="flex"
+                                    justifyContent={{
+                                      xs: "center",
+                                      sm: "space-between",
                                     }}
+                                    gap={0.5}
+                                    alignItems="center"
+                                    flexWrap="wrap"
                                   >
-                                    {getTimeDifference(
-                                      getCurrentCETTime(),
-                                      item.Time
-                                    )}
-                                  </Link>
-                                </Typography>
-                              </Box>
-                            </Grid>
-                          </Grid>
-                        </>
-                      ))}
-                    </Box>
-                  </Paper>
-                </>
-              );
-            })}
-          </Box>
-        </>
-      )}
+                                    {/* Left Section */}
+                                    <Box textAlign="left">
+                                      {item.Buy_Sell === "Buy" && (
+                                        <Typography
+                                          sx={{
+                                            color: "black",
+                                            fontSize: {
+                                              xs: "10px",
+                                              sm: "14px",
+                                              md: "16px",
+                                            },
+                                          }}
+                                        >
+                                          {item.Sol_Amount} sol
+                                        </Typography>
+                                      )}
+                                      {item.Buy_Sell === "Sell" && (
+                                        <Typography
+                                          sx={{
+                                            color: "black",
+                                            fontSize: {
+                                              xs: "10px",
+                                              sm: "14px",
+                                              md: "16px",
+                                            },
+                                          }}
+                                        >
+                                          {item.Token_Amount}{" "}
+                                          <Link
+                                            href={`https://dexscreener.com/solana/${username}`}
+                                            target="_blank"
+                                          >
+                                            <span
+                                              style={{
+                                                fontWeight: "bold",
+                                                color: "black",
+                                              }}
+                                            >
+                                              {item.Token}
+                                            </span>
+                                          </Link>
+                                        </Typography>
+                                      )}
+                                    </Box>
+
+                                    {/* Right Section */}
+                                    <Box textAlign="right">
+                                      {item.Buy_Sell === "Buy" && (
+                                        <Typography
+                                          sx={{
+                                            color: "black",
+                                            fontSize: {
+                                              xs: "10px",
+                                              sm: "14px",
+                                              md: "16px",
+                                            },
+                                          }}
+                                        >
+                                          {item.Token_Amount}{" "}
+                                          <Link
+                                            href={`https://dexscreener.com/solana/${username}`}
+                                            target="_blank"
+                                          >
+                                            <span
+                                              style={{
+                                                fontWeight: "bold",
+                                                color: "black",
+                                              }}
+                                            >
+                                              {item.Token}
+                                            </span>
+                                          </Link>
+                                        </Typography>
+                                      )}
+                                      {item.Buy_Sell === "Sell" && (
+                                        <Typography
+                                          sx={{
+                                            color: "black",
+                                            fontSize: {
+                                              xs: "10px",
+                                              sm: "14px",
+                                              md: "16px",
+                                            },
+                                          }}
+                                        >
+                                          {item.Sol_Amount} sol
+                                        </Typography>
+                                      )}
+                                    </Box>
+                                  </Box>
+                                </Grid>
+
+                                {/* Time Column */}
+                                <Grid item xs={1} sm={1} md={1}>
+                                  <Box textAlign="right">
+                                    <Typography
+                                      sx={{
+                                        color: "black",
+                                        fontSize: {
+                                          xs: "10px",
+                                          sm: "12px",
+                                          md: "14px",
+                                        },
+                                      }}
+                                    >
+                                      <Link
+                                        href={item.Link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        sx={{
+                                          textDecoration: "none",
+                                          color: "inherit",
+                                          cursor: "pointer",
+                                        }}
+                                      >
+                                        {getTimeDifference(
+                                          getCurrentCETTime(),
+                                          item.Time
+                                        )}
+                                      </Link>
+                                    </Typography>
+                                  </Box>
+                                </Grid>
+                              </Grid>
+                            </>
+                          ))}
+                        </Box>
+                      </Paper>
+                    </>
+                  );
+                })}
+              </Box>
+            </>
+          )}
+        </Box>
+      </Paper>
     </Box>
   );
 };

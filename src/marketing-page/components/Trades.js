@@ -29,7 +29,7 @@ export default function DashBoard() {
         <>
           <Box sx={{ borderLeft: "2px solid #000000 !important" }}>
             {/* top kols */}
-            <Paper
+            {/* <Paper
               id="TopKol"
               elevation={0}
               sx={{
@@ -56,10 +56,10 @@ export default function DashBoard() {
                 }}
               >
                 Realized PnL Leaderboard
-              </Typography>
+              </Typography> */}
               {/* <Leaderboard count={100}/> */}
-              <Leaderboard />
-            </Paper>
+              {/* <Leaderboard />
+            </Paper> */}
 
             <Paper
               id="Trending"
@@ -128,7 +128,7 @@ export default function DashBoard() {
               <MemOrder />
             </Paper>
 
-            <Box
+            {/* <Box
               id="Live"
               sx={{
                 display: "flex",
@@ -166,7 +166,7 @@ export default function DashBoard() {
                 </Typography>
                 <RealTimeTraders />
               </Paper>
-            </Box>
+            </Box> */}
           </Box>
         </>
       ) : (

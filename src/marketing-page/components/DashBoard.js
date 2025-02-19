@@ -193,26 +193,9 @@ export default function DashBoard() {
                       link="https://t.me/kolsOnline"
                       buttonText="Join Our Telegram"
                     />
-                  </Box>
-                  <Typography
-                    variant="h5"
-                    sx={{
-                      fontFamily: "VT323, monospace",
-                      fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
-                      fontWeight: 700,
-                      background: "rgb(0, 0, 0) 0%",
-                      backgroundClip: "text",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      borderRadius: 0, // Setting border radius to 0
-                      borderBottom: "2px solid #000000",
-                      pl: 3,
-                    }}
-                  >
-                    Top Kols
-                  </Typography>
+                  </Box>                  
                   <Leaderboard count={9} />
-                  <Link href={`/details#TopKol`}>
+                  <Link href={`/TopKol`}>
                     <Typography
                       variant="h5"
                       sx={{

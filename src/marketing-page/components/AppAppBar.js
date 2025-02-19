@@ -59,7 +59,8 @@ export default function AppAppBar() {
   const navigate = useNavigate();
 
   // const { scrollToTopKol,scrollToTrending,scrollToMemes,scrollToLive,SolConnectWallet, solCurrentAccount } = useContext(CryptoTrans);
-  const { SolConnectWallet, solCurrentAccount } = useContext(CryptoTrans);
+  const { SolConnectWallet, solCurrentAccount, SolDisconnectWallet } =
+    useContext(CryptoTrans);
   useEffect(() => {
     const interval = setInterval(() => {
       setBgColor((prev) => !prev);
@@ -93,13 +94,13 @@ export default function AppAppBar() {
             {/* Middle - Desktop Navigation */}
             <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2 }}>
               <CustomButton
-                link="/details#TopKol"
+                link="/TopKol"
                 buttonText="Top Kols"
                 width="120px"
               />
-              <CustomButton link="/details#Trending" buttonText="Memes" />
-              <CustomButton link="/details#Memes" buttonText="Trending" />
-              <CustomButton link="/details#Live" buttonText="Live" />
+              <CustomButton link="/Memes" buttonText="Memes" />
+              <CustomButton link="/Trending" buttonText="Trending" />
+              <CustomButton link="/Live" buttonText="Live" />
             </Box>
 
             {/* Right Section - Price & Wallet */}
@@ -107,38 +108,55 @@ export default function AppAppBar() {
               {/* <Typography sx={{ color: "black" }}>
                 Last updated: X Seconds ago
               </Typography> */}
-              <Button
-                onClick={() => {
-                  if (!solCurrentAccount) {
-                    SolConnectWallet(1);
-                  } else {
-                    navigate(`/account/${solCurrentAccount}`);
-                  }
-                }}
-                variant="contained"
-                sx={{
-                  display: { xs: "none", md: "flex" },
-                  textTransform: "none",
-                  fontSize: "1rem",
-                  border: "1px solid black !important",
-                  borderRadius: 0,
-                  transition: "all 0.5s ease-in-out",
-                  background: !solCurrentAccount
-                    ? bgColor
-                      ? "white !important"
-                      : "red !important"
-                    : "white !important",
-                  color: "black",
-                  "&:hover": {
-                    transform: "translateX(-3px) translateY(3px)",
-                    border: "1px solid #FF5733",
-                  },
-                }}
-              >
-                {solCurrentAccount
-                  ? solCurrentAccount.toString().substring(0, 6)
-                  : "Connect Wallet"}
-              </Button>
+              <Box display="flex" alignItems="center" gap={0.1}>
+                <Button
+                  onClick={() => {
+                    if (!solCurrentAccount) {
+                      SolConnectWallet(1);
+                    } else {
+                      navigate(`/account/${solCurrentAccount}`);
+                    }
+                  }}
+                  variant="contained"
+                  sx={{
+                    display: { xs: "none", md: "flex" },
+                    textTransform: "none",
+                    fontSize: "1rem",
+                    border: "1px solid black !important",
+                    borderRadius: 0,
+                    background: !solCurrentAccount
+                      ? bgColor
+                        ? "white !important"
+                        : "red !important"
+                      : "white !important",
+                    color: "black",
+                  }}
+                >
+                  {solCurrentAccount
+                    ? solCurrentAccount.toString().substring(0, 6)
+                    : "Connect Wallet"}
+                </Button>
+                {solCurrentAccount && (
+                  <Button
+                    onClick={() => {
+                      SolDisconnectWallet();
+                    }}
+                    variant="contained"
+                    sx={{
+                      width: "30px",
+                      display: { xs: "none", md: "flex" },
+                      textTransform: "none",
+                      fontSize: "1rem",
+                      border: "1px solid black !important",
+                      borderRadius: 0,
+                      background: "white !important",
+                      color: "black",
+                    }}
+                  >
+                    X
+                  </Button>
+                )}
+              </Box>
 
               {/* Mobile Menu Icon */}
               <IconButton
@@ -159,42 +177,57 @@ export default function AppAppBar() {
               gap={2}
               sx={{ py: 2, background: "#faf3e0" }}
             >
-              <CustomButton link="/details#TopKol" buttonText="Top Kols" />
-              <CustomButton link="/details#Trending" buttonText="Memes" />
-              <CustomButton link="/details#Memes" buttonText="Trending" />
-              <CustomButton link="/details#Live" buttonText="Live" />
-              <Button
-                onClick={() => {
-                  if (!solCurrentAccount) {
-                    SolConnectWallet(1);
-                  } else {
-                    navigate(`/account/${solCurrentAccount}`);
-                  }
-                }}
-                variant="contained"
-                sx={{
-                  textTransform: "none",
-                  fontSize: "1rem",
-                  border: "1px solid black !important",
-                  borderRadius: 0,
-                  transition: "all 0.5s ease-in-out",
-                  background: !solCurrentAccount
-                    ? bgColor
-                      ? "white !important"
-                      : "red !important"
-                    : "white !important",
-                  color: "black",
-                  "&:hover": {
-                    transform: "translateX(-3px) translateY(3px)",
-                    border: "1px solid #FF5733",
-                  },
-                }}
-              >
-                {solCurrentAccount
-                  ? solCurrentAccount.toString().substring(0, 6)
-                  : "Connect Wallet"}
-              </Button>
-              {/* <CustomButton link="/trades" buttonText="Traders & Leaderboard" /> */}
+              <CustomButton link="/TopKol" buttonText="Top Kols" />
+              <CustomButton link="/Memes" buttonText="Memes" />
+              <CustomButton link="/Trending" buttonText="Trending" />
+              <CustomButton link="/Live" buttonText="Live" />
+              <Box display="flex" alignItems="center" gap={0.1}>
+                <Button
+                  onClick={() => {
+                    if (!solCurrentAccount) {
+                      SolConnectWallet(1);
+                    } else {
+                      navigate(`/account/${solCurrentAccount}`);
+                    }
+                  }}
+                  variant="contained"
+                  sx={{
+                    textTransform: "none",
+                    fontSize: "1rem",
+                    border: "1px solid black !important",
+                    borderRadius: 0,
+                    background: !solCurrentAccount
+                      ? bgColor
+                        ? "white !important"
+                        : "red !important"
+                      : "white !important",
+                    color: "black",
+                  }}
+                >
+                  {solCurrentAccount
+                    ? solCurrentAccount.toString().substring(0, 6)
+                    : "Connect Wallet"}
+                </Button>
+                {solCurrentAccount && (
+                  <Button
+                    onClick={() => {
+                      SolDisconnectWallet();
+                    }}
+                    variant="contained"
+                    sx={{
+                      width: "30px",
+                      textTransform: "none",
+                      fontSize: "1rem",
+                      border: "1px solid black !important",
+                      borderRadius: 0,
+                      background: "white !important",
+                      color: "black",
+                    }}
+                  >
+                    X
+                  </Button>
+                )}
+              </Box>
             </Box>
           )}
         </Container>

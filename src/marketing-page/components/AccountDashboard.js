@@ -488,7 +488,7 @@ const AccountDashboard = () => {
                     p: 1,
                     gap:1,
                     background: "#faf3e0",
-                    maxHeight: window.screen.height - 100,
+                    height: window.screen.height - 350,
                     overflowY: "auto",
                     overflowX: "hidden",
                     backgroundColor: "#faf3e0",
